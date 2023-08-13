@@ -9,4 +9,4 @@
  - Custom output
 
 ### Later additions
-  - Graphing? idk
+ - Graphing? idk
