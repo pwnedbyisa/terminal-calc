@@ -10,3 +10,6 @@
 
 ### Later additions
  - Graphing? idk
+
+## Misc
+ - Yeah ik my code can be optimized like a lot js close your eyes idk 
