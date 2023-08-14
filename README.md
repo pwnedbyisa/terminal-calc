@@ -1,4 +1,4 @@
-# advanced-calc-cli
+# advanced-calc-cli (WIP)
 
 ### Functions
  - Basically a command line calulator with some advanced functions (ex// inverse trig)
