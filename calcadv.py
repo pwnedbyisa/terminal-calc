@@ -122,6 +122,10 @@ def op_list():
                 base = sys.argv[i + 2]
                 logs(num, base)
                 break
+            elif currentArgument == '[pi]':
+                sys.argv[i] = str(math.pi)
+            elif currentArgument == '[e]':
+                sys.argv[i] = str(math.e)
             elif currentArgument in ('-mr', '--memory-recall'):
                 print('\n[*] Recovering . . .\n')
                 print(memory)
@@ -134,7 +138,7 @@ def op_list():
                 print('\n[*] Clearing . . .\n')
                 print('This feature isn\'t available yet </3')
             elif currentArgument in ('-g', '--github'):
-                url = 'https://github.com/pwnedbyisa'
+                url = 'https://github.com/pwnedbyisa/advanced-calc-cli'
                 webbrowser.open(url)
             else:
                 print('Argument Not Recognized: -h or --help for help')
