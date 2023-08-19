@@ -1,6 +1,7 @@
 import math
 import webbrowser
 import random
+import calcgraph
 
 memory = []
 
@@ -109,6 +110,12 @@ def op_list(args):
         elif currentArgument in ('-g', '--github'):
             url = 'https://github.com/pwnedbyisa/advanced-calc-cli'
             webbrowser.open(url)
+        elif currentArgument in ('-gm', '--graphing-mode'):
+            equation = args[1]
+            left, right = calcgraph.parse_equation(equation)
+            if left.lower() == 'y':
+                graph = calcgraph.generate_graph(right)
+                print(graph)
         # pi and e at the bottom because they interfere w other functions and cause list index out of range errors
         elif args[1] == '[pi]':
             args[1] = float(math.pi)
@@ -415,7 +422,7 @@ def logs(num, base):
 
 
 def main():
-    prompt = 'user@calcCLI $ '
+    prompt = '$ '
 
     # banner
     print('\n')
@@ -455,6 +462,7 @@ def main():
                 '-sk, --script-kiddie\t <r35ult l00k5 l1k3 th15>\n'
                 # source for more when implemented http://kaomoji.ru/en/
                 '-em, --emoticons\t <result gets one of these (´ ω `@)>\n'
+                '-gm, --graphing-mode\t <graph an equation - ex// -gm y=3x+2>'
                 '\nMemory vvv\n' + '-' * 79 + '\n'
                 '-mr, --memory-recall\t <recall previous result(s) (up to 10)>\n'
                 '-mc, --memory-clear\t <clear all saved results>\n\n'
