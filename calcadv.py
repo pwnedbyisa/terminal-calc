@@ -2,9 +2,6 @@ import math
 import webbrowser
 import random
 
-# to do
-# input numbers
-# morse mode (might skip tbh)
 memory = []
 
 em_list = ['<(￣︶￣)>', '(￢‿￢ )', '⸜( *ˊᵕˋ* )⸝', '(ﾉ´ з `)ノ',
@@ -29,63 +26,63 @@ def op_list(args):
         if currentArgument in ('-em', '--emoticons'):
             emoticon_mode_enabled = not emoticon_mode_enabled
             if emoticon_mode_enabled:
-                print('\n[*] Emoticon mode enabled! There are 21 total; can you catch them all? (´ ∀ ` *)\n')
+                print('\n>>> [*] Emoticon mode enabled! There are 21 total; can you catch them all? (´ ∀ ` *)\n')
             else:
-                print('\n[*] Emoticon mode disabled (￣～￣;)\n')
+                print('\n>>> [*] Emoticon mode disabled (￣～￣;)\n')
         elif currentArgument in ('-sk', '--script-kiddie'):
             sk_mode_enabled = not sk_mode_enabled
             if sk_mode_enabled:
-                print('\n[*] 5cr1pt k1dd13 m0d3 3n4bl3d <3\n')
+                print('\n>>> [*] 5cr1pt k1dd13 m0d3 3n4bl3d <3\n')
             else:
-                print('\n[*] Script kiddie mode disabled </3 (not very 1337 of you ngl)\n')
+                print('\n>>> [*] Script kiddie mode disabled </3 (not very 1337 of you ngl)\n')
         elif currentArgument in ('-a', '--add'):
-            print('\n[*] Calculating . . .\n')
+            print('\n>>> [*] Calculating . . .\n')
             add(args[1], args[2])
         elif currentArgument in ('-s', '--subtract'):
-            print('\n[*] Calculating . . .\n')
+            print('\n>>> [*] Calculating . . .\n')
             sub(args[1], args[2])
         elif currentArgument in ('-m', '--multiply'):
-            print('\n[*] Calculating . . .\n')
+            print('\n>>> [*] Calculating . . .\n')
             mult(args[1], args[2])
         elif currentArgument in ('-d', '--divide'):
-            print('\n[*] Calculating . . .\n')
+            print('\n>>> [*] Calculating . . .\n')
             div(args[1], args[2])
         elif currentArgument in ('-ex', '--exponent'):
-            print('\n[*] Calculating . . .\n')
+            print('\n>>> [*] Calculating . . .\n')
             expo(args[1], args[2])
         elif currentArgument in ('-sq', '--square-root'):
-            print('\n[*] Calculating . . .\n')
+            print('\n>>> [*] Calculating . . .\n')
             sqrt(args[1])
         elif currentArgument in ('-abs', '--abs-value'):
-            print('\n[*] Calculating . . .\n')
+            print('\n>>> [*] Calculating . . .\n')
             absv(args[1])
         elif currentArgument in ('-rad', '--rad-from-deg'):
-            print('\n[*] Converting . . .\n')
+            print('\n>>> [*] Converting . . .\n')
             rad(args[1])
         elif currentArgument in ('-deg', '--deg-from-rad'):
-            print('\n[*] Converting . . .\n')
+            print('\n>>> [*] Converting . . .\n')
             deg(args[1])
         elif currentArgument in ('-f', '--factorial'):
-            print('\n[*] Calculating . . .\n')
+            print('\n>>> [*] Calculating . . .\n')
             fact(args[1])
         elif currentArgument in ('-S', '--sine'):
-            print('\n[*] Calculating . . .\n')
+            print('\n>>> [*] Calculating . . .\n')
             angle = args[1]
             sin(angle)
         elif currentArgument in ('-C', '--cosine'):
-            print('\n[*] Calculating . . .\n')
+            print('\n>>> [*] Calculating . . .\n')
             angle = args[1]
             cos(angle)
         elif currentArgument in ('-T', '-tangent'):
-            print('\n[*] Calculating . . .\n')
+            print('\n>>> [*] Calculating . . .\n')
             angle = args[1]
             tan(angle)
         elif currentArgument in ('-aS', '--arc-sin'):
-            print('\n[*] Calculating . . .\n')
+            print('\n>>> [*] Calculating . . .\n')
             angle = args[1]
             arcsin(angle)
         elif currentArgument in ('-aC', '--arc-cos'):
-            print('\n[*] Calculating . . .\n')
+            print('\n>>> [*] Calculating . . .\n')
             angle = args[1]
             arccos(angle)
         elif currentArgument in ('-aT', '--arc-tan'):
@@ -93,38 +90,50 @@ def op_list(args):
             angle = args[1]
             arctan(angle)
         elif currentArgument in ('-l', '--log'):
-            print('\n[*] Calculating . . .\n')
+            print('\n>>> [*] Calculating . . .\n')
             base = args[2]
             logs(args[1], base)
-        elif currentArgument == '[pi]':
-            args[1] = str(math.pi)
-        elif currentArgument == '[e]':
-            args[1] = str(math.e)
         elif currentArgument in ('-mo', '--morse-code'):
-            print('This feature isn\'t available yet </3')
+            print('>>> This feature isn\'t available yet </3')
         elif currentArgument in ('-mr', '--memory-recall'):
-            print('\n[*] Recovering . . .\n')
+            print('\n>>> [*] Recovering . . .\n')
             if memory:
                 for idx, result in enumerate(memory, start=0):
                     print(f'Result {idx}: {result}\n')
             else:
-                print('No results in memory.\n')
+                print('>>> No results in memory </3\n')
         elif currentArgument in ('-mc', '--memory-clear'):
-            print('\n[*] Clearing . . .\n')
+            print('\n>>> [*] Clearing . . .\n')
             memory.clear()
-            print('[*] Memory cleared\n')
+            print('>>> [*] Memory cleared <3\n')
         elif currentArgument in ('-g', '--github'):
             url = 'https://github.com/pwnedbyisa/advanced-calc-cli'
             webbrowser.open(url)
+        # pi and e at the bottom because they interfere w other functions and cause list index out of range errors
+        elif args[1] == '[pi]':
+            args[1] = float(math.pi)
+            out(args[1])
+        elif args[1] == '[e]':
+            args[1] = float(math.e)
+            out(args[1])
         else:
-            print('Argument Not Recognized: -h or --help for help')
+            print('\n>>> Argument Not Recognized: -h or --help for help\n')
 
     except Exception as e:
-        print('Error:', str(e) + '\n' + 'Please use the -h or --help argument to see proper formatting')
+        print('\n>>> Error:', str(e) + '\n' + '\n>>> Please use the -h or --help argument to see proper formatting\n')
 
 
+# this is a decorator, no I don't really understand how it works but it does
 def out(func):
     def wrapper(*args, **kwargs):
+
+        args = list(args)
+        for i in range(len(args)):
+            if args[i] == '[pi]':
+                args[i] = float(math.pi)
+            elif args[i] == '[e]':
+                args[i] = float(math.e)
+
         result = func(*args, **kwargs)
 
         if sk_mode_enabled:
@@ -151,10 +160,10 @@ def add(num, num2):
 
         if len(memory) > 10:
             memory.pop(0)
-        return f'The sum of {num} and {num2} is {addition}\n'
+        return f'>>> The sum of {num} and {num2} is {addition}\n'
 
     except ValueError:
-        print('Invalid input. Please provide two valid numbers.\n')
+        print('>>> Invalid input. Please provide two valid numbers.\n')
 
 
 @out
@@ -167,10 +176,10 @@ def sub(num, num2):
 
         if len(memory) > 10:
             memory.pop(0)
-        return f'{num} minus {num2} is {subtract}\n'
+        return f'>>> {num} minus {num2} is {subtract}\n'
 
     except ValueError:
-        print('Invalid input. Please provide two valid numbers.\n')
+        print('>>> Invalid input. Please provide two valid numbers.\n')
 
 
 @out
@@ -183,10 +192,10 @@ def mult(num, num2):
 
         if len(memory) > 10:
             memory.pop(0)
-        return f'{num} multiplied by {num2} is {multiply}\n'
+        return f'>>> {num} multiplied by {num2} is {multiply}\n'
 
     except ValueError:
-        print('Invalid input. Please provide two valid numbers.\n')
+        print('>>> Invalid input. Please provide two valid numbers.\n')
 
 
 @out
@@ -199,10 +208,10 @@ def div(num, num2):
 
         if len(memory) > 10:
             memory.pop(0)
-        return f'{num} divided by {num2} is {divide}\n'
+        return f'>>> {num} divided by {num2} is {divide}\n'
 
     except ValueError:
-        print('Invalid input. Please provide two valid numbers.\n')
+        print('>>> Invalid input. Please provide two valid numbers.\n')
 
 
 @out
@@ -215,10 +224,10 @@ def expo(num, num2):
 
         if len(memory) > 10:
             memory.pop(0)
-        return f'{num} to the {num2} is {exp}\n'
+        return f'>>> {num} to the {num2} is {exp}\n'
 
     except ValueError:
-        print('Invalid input. Please provide two valid numbers.\n')
+        print('>>> Invalid input. Please provide two valid numbers.\n')
 
 
 @out
@@ -230,10 +239,10 @@ def sqrt(num):
 
         if len(memory) > 10:
             memory.pop(0)
-        return f'The square root of {num} is {sqt}\n'
+        return f'>>> The square root of {num} is {sqt}\n'
 
     except ValueError:
-        print('Invalid input. Please provide a valid number.\n')
+        print('>>> Invalid input. Please provide a valid number.\n')
 
 
 @out
@@ -245,10 +254,10 @@ def absv(num):
 
         if len(memory) > 10:
             memory.pop(0)
-        return f'The absolute value of {num} is {absval}\n'
+        return f'>>> The absolute value of {num} is {absval}\n'
 
     except ValueError:
-        print('Invalid input. Please provide a valid number.\n')
+        print('>>> Invalid input. Please provide a valid number.\n')
 
 
 @out
@@ -260,10 +269,10 @@ def rad(num):
 
         if len(memory) > 10:
             memory.pop(0)
-        return f'{num} degrees is {radian} radians\n'
+        return f'>>> {num} degrees is {radian} radians\n'
 
     except ValueError:
-        print('Invalid input. Please provide a valid number.\n')
+        print('>>> Invalid input. Please provide a valid number.\n')
 
 
 @out
@@ -275,10 +284,10 @@ def deg(num):
 
         if len(memory) > 10:
             memory.pop(0)
-        return f'{num} radians is {degree} degrees\n'
+        return f'>>> {num} radians is {degree} degrees\n'
 
     except ValueError:
-        print('Invalid input. Please provide a valid number.\n')
+        print('>>> Invalid input. Please provide a valid number.\n')
 
 
 @out
@@ -290,10 +299,10 @@ def fact(num):
 
         if len(memory) > 10:
             memory.pop(0)
-        return f'{num} factorial is {factorial}\n'
+        return f'>>> {num} factorial is {factorial}\n'
 
     except ValueError:
-        print('Invalid input. Please provide a valid integer (max 1558).\n')
+        print('>>> Invalid input. Please provide a valid integer (max 1558).\n')
 
 
 @out
@@ -305,10 +314,10 @@ def cos(angle):
 
         if len(memory) > 10:
             memory.pop(0)
-        return f'The cosine of {angle} degrees is {cosine} radians\n'
+        return f'>>> The cosine of {angle} degrees is {cosine} radians\n'
 
     except ValueError:
-        print('Invalid input. Please provide a valid number for the angle.\n')
+        print('>>> Invalid input. Please provide a valid number for the angle.\n')
 
 
 @out
@@ -320,10 +329,10 @@ def sin(angle):
 
         if len(memory) > 10:
             memory.pop(0)
-        return f'The sine of {angle} degrees is {sine} radians\n'
+        return f'>>> The sine of {angle} degrees is {sine} radians\n'
 
     except ValueError:
-        print('Invalid input. Please provide a valid number for the angle.\n')
+        print('>>> Invalid input. Please provide a valid number for the angle.\n')
 
 
 @out
@@ -335,10 +344,10 @@ def tan(angle):
 
         if len(memory) > 10:
             memory.pop(0)
-        return f'The tangent of {angle} degrees is {tangent} radians\n'
+        return f'>>> The tangent of {angle} degrees is {tangent} radians\n'
 
     except ValueError:
-        print('Invalid input. Please provide a valid number for the angle.\n')
+        print('>>> Invalid input. Please provide a valid number for the angle.\n')
 
 
 @out
@@ -351,10 +360,10 @@ def arcsin(angle):
 
         if len(memory) > 10:
             memory.pop(0)
-        return f'The inverse sine of {angle} is  {arcsind} in degrees and {arcsinr} in radians\n'
+        return f'>>> The inverse sine of {angle} is  {arcsind} in degrees and {arcsinr} in radians\n'
 
     except ValueError:
-        print('Invalid input. Please provide a valid number within the domain [-1, 1].\n')
+        print('>>> Invalid input. Please provide a valid number within the domain [-1, 1].\n')
 
 
 @out
@@ -367,10 +376,10 @@ def arccos(angle):
 
         if len(memory) > 10:
             memory.pop(0)
-        return f'The inverse cosine of {angle} is {arccosd} in degrees and {arccosr} in radians\n'
+        return f'>>> The inverse cosine of {angle} is {arccosd} in degrees and {arccosr} in radians\n'
 
     except ValueError:
-        print('Invalid input. Please provide a valid number within the domain [-1, 1].\n')
+        print('>>> Invalid input. Please provide a valid number within the domain [-1, 1].\n')
 
 
 @out
@@ -383,10 +392,10 @@ def arctan(angle):
 
         if len(memory) > 10:
             memory.pop(0)
-        return f'The inverse tangent of {angle} is {arctand} in degrees and {arctanr} in radians\n'
+        return f'>>> The inverse tangent of {angle} is {arctand} in degrees and {arctanr} in radians\n'
 
     except ValueError:
-        print('Invalid input. Please provide a valid number within the domain.\n')
+        print('>>> Invalid input. Please provide a valid number within the domain.\n')
 
 
 @out
@@ -399,14 +408,14 @@ def logs(num, base):
 
         if len(memory) > 10:
             memory.pop(0)
-        return f'The logarithm of {num} base {base} is {log}\n'
+        return f'>>> The logarithm of {num} base {base} is {log}\n'
 
     except ValueError:
-        print('Invalid input. Format <number> <base>.\n')
+        print('>>> Invalid input. Format <number> <base>.\n')
 
 
 def main():
-    prompt = 'isabelle@calc $ '
+    prompt = 'user@calcCLI $ '
 
     # banner
     print('\n')
@@ -424,12 +433,12 @@ def main():
     while True:
         currentArgument = input(prompt)
 
-        if currentArgument in ('exit', 'quit', 'bye', 'peace out'):
-            print("Exiting CalcCLI. Goodbye!")
+        if currentArgument in ('exit', 'quit', 'bye', 'peace', 'close'):
+            print("\n>>> Exiting CalcCLI. Bye!\n")
             break
         elif currentArgument in ('-h', '--help'):
             print('\nFormat: <options> <number(s)>\n'
-                  'Example: -a 84 23 \n' + '-' * 79)
+                  'Example: -a [pi] 23 \n' + '-' * 79)
             print(
                 '\n\nBasic Functions vvv\n' + '-' * 79 + '\n'
                 '-a, --add\t <addition>\n-s, --subtract\t <subtraction>\n'
@@ -444,7 +453,6 @@ def main():
                 '[e]\t <e as input>\n[pi]\t <pi as input>\n\n'
                 '\nOutput Settings vvv\n' + '-' * 79 + '\n'
                 '-sk, --script-kiddie\t <r35ult l00k5 l1k3 th15>\n'
-                '-mo, --morse-code\t <.-. . ... ..- .-.. - / .-.. --- --- -.- ... / .-.. .. -.- . / - .... .. ...>\n'
                 # source for more when implemented http://kaomoji.ru/en/
                 '-em, --emoticons\t <result gets one of these (´ ω `@)>\n'
                 '\nMemory vvv\n' + '-' * 79 + '\n'
