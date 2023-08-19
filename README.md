@@ -11,7 +11,7 @@
 ### Later additions
  - probably language conversion
 
-## Misc
+### Misc
  - please keep in mind this is a learning projects for me
  - as in i'm still learning how to code and that's pretty obvious (imo)
  - yeah ik my code can be optimized like a lot js close your eyes idk 
