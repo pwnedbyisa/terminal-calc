@@ -4,26 +4,40 @@ import random
 
 # to do
 # input numbers
-# script kiddie and morse mode
+# morse mode (might skip tbh)
 memory = []
+
 em_list = ['<(￣︶￣)>', '(￢‿￢ )', '⸜( *ˊᵕˋ* )⸝', '(ﾉ´ з `)ノ',
            '(*¯ ³¯*)♡', '(´꒳`)♡', '(＃￣ω￣)', '(҂ `з´ )', 'ᕕ( ᐛ )ᕗ',
            '┐(‘～` )┌', '(¯ . ¯٥)', '(￣～￣;)', '(o´▽`o)ﾉ', 'ヾ( `ー´)シφ__',
            '(＿ ＿*) Z z z', 'ʕ •̀ ω •́ ʔ', '~(˘▽˘~)', '( ˘ ɜ˘) ♬♪♫',
            '٩(ˊ〇ˋ*)و', '(￣^￣)ゞ', 'ଘ(੭ˊ꒳ˋ)੭✧']
+sk_replace = [('a', '4'), ('e', '3'), ('i', '1'), ('o', '0'), ('s', '5')]
+
 emoticon_mode_enabled = False
+sk_mode_enabled = False
 
 
 def op_list(args):
     global emoticon_mode_enabled
+    global sk_mode_enabled
 
     try:
         currentArgument = args[0]
         # args[1] = num and args[2] = num2
 
         if currentArgument in ('-em', '--emoticons'):
-            emoticon_mode_enabled = True
-            print('\n[*] Emoticon mode enabled! There are 21 total; can you catch them all? (´ ∀ ` *)\n')
+            emoticon_mode_enabled = not emoticon_mode_enabled
+            if emoticon_mode_enabled:
+                print('\n[*] Emoticon mode enabled! There are 21 total; can you catch them all? (´ ∀ ` *)\n')
+            else:
+                print('\n[*] Emoticon mode disabled (￣～￣;)\n')
+        elif currentArgument in ('-sk', '--script-kiddie'):
+            sk_mode_enabled = not sk_mode_enabled
+            if sk_mode_enabled:
+                print('\n[*] 5cr1pt k1dd13 m0d3 3n4bl3d <3\n')
+            else:
+                print('\n[*] Script kiddie mode disabled </3 (not very 1337 of you ngl)\n')
         elif currentArgument in ('-a', '--add'):
             print('\n[*] Calculating . . .\n')
             add(args[1], args[2])
@@ -86,15 +100,13 @@ def op_list(args):
             args[1] = str(math.pi)
         elif currentArgument == '[e]':
             args[1] = str(math.e)
-        elif currentArgument in ('-sk', '--script-kiddie'):
-            print('This feature isn\'t available yet </3')
         elif currentArgument in ('-mo', '--morse-code'):
             print('This feature isn\'t available yet </3')
         elif currentArgument in ('-mr', '--memory-recall'):
             print('\n[*] Recovering . . .\n')
             if memory:
                 for idx, result in enumerate(memory, start=0):
-                    print(f'Memory {idx}: {result}\n')
+                    print(f'Result {idx}: {result}\n')
             else:
                 print('No results in memory.\n')
         elif currentArgument in ('-mc', '--memory-clear'):
@@ -111,22 +123,25 @@ def op_list(args):
         print('Error:', str(e) + '\n' + 'Please use the -h or --help argument to see proper formatting')
 
 
-def add_em(func):
+def out(func):
     def wrapper(*args, **kwargs):
         result = func(*args, **kwargs)
+
+        if sk_mode_enabled:
+            for replace_tuple in sk_replace:
+                char_to_replace, replacement = replace_tuple
+                result = result.replace(char_to_replace, replacement)
+
         if emoticon_mode_enabled:
             emoticon = random.choice(em_list)
-            result_em = f'{result}\t {emoticon}'
-        else:
-            result_em = result
+            result += f'\t {emoticon}'
 
-        print(result_em)  # Print the result
-        return result  # Return the original result
-
+        print(result)
+        return result
     return wrapper
 
 
-@add_em
+@out
 def add(num, num2):
     try:
         num = float(num)
@@ -142,7 +157,7 @@ def add(num, num2):
         print('Invalid input. Please provide two valid numbers.\n')
 
 
-@add_em
+@out
 def sub(num, num2):
     try:
         num = float(num)
@@ -158,7 +173,7 @@ def sub(num, num2):
         print('Invalid input. Please provide two valid numbers.\n')
 
 
-@add_em
+@out
 def mult(num, num2):
     try:
         num = float(num)
@@ -174,7 +189,7 @@ def mult(num, num2):
         print('Invalid input. Please provide two valid numbers.\n')
 
 
-@add_em
+@out
 def div(num, num2):
     try:
         num = float(num)
@@ -190,7 +205,7 @@ def div(num, num2):
         print('Invalid input. Please provide two valid numbers.\n')
 
 
-@add_em
+@out
 def expo(num, num2):
     try:
         num = float(num)
@@ -206,7 +221,7 @@ def expo(num, num2):
         print('Invalid input. Please provide two valid numbers.\n')
 
 
-@add_em
+@out
 def sqrt(num):
     try:
         num = float(num)
@@ -221,7 +236,7 @@ def sqrt(num):
         print('Invalid input. Please provide a valid number.\n')
 
 
-@add_em
+@out
 def absv(num):
     try:
         num = float(num)
@@ -236,7 +251,7 @@ def absv(num):
         print('Invalid input. Please provide a valid number.\n')
 
 
-@add_em
+@out
 def rad(num):
     try:
         num = float(num)
@@ -251,7 +266,7 @@ def rad(num):
         print('Invalid input. Please provide a valid number.\n')
 
 
-@add_em
+@out
 def deg(num):
     try:
         num = float(num)
@@ -266,7 +281,7 @@ def deg(num):
         print('Invalid input. Please provide a valid number.\n')
 
 
-@add_em
+@out
 def fact(num):
     try:
         num = int(num)
@@ -281,7 +296,7 @@ def fact(num):
         print('Invalid input. Please provide a valid integer (max 1558).\n')
 
 
-@add_em
+@out
 def cos(angle):
     try:
         angle = float(angle)
@@ -296,7 +311,7 @@ def cos(angle):
         print('Invalid input. Please provide a valid number for the angle.\n')
 
 
-@add_em
+@out
 def sin(angle):
     try:
         angle = float(angle)
@@ -311,7 +326,7 @@ def sin(angle):
         print('Invalid input. Please provide a valid number for the angle.\n')
 
 
-@add_em
+@out
 def tan(angle):
     try:
         angle = float(angle)
@@ -326,7 +341,7 @@ def tan(angle):
         print('Invalid input. Please provide a valid number for the angle.\n')
 
 
-@add_em
+@out
 def arcsin(angle):
     try:
         angle = float(angle)
@@ -342,7 +357,7 @@ def arcsin(angle):
         print('Invalid input. Please provide a valid number within the domain [-1, 1].\n')
 
 
-@add_em
+@out
 def arccos(angle):
     try:
         angle = float(angle)
@@ -358,7 +373,7 @@ def arccos(angle):
         print('Invalid input. Please provide a valid number within the domain [-1, 1].\n')
 
 
-@add_em
+@out
 def arctan(angle):
     try:
         angle = float(angle)
@@ -374,7 +389,7 @@ def arctan(angle):
         print('Invalid input. Please provide a valid number within the domain.\n')
 
 
-@add_em
+@out
 def logs(num, base):
     try:
         num = float(num)
@@ -428,7 +443,7 @@ def main():
                 '\nInput Numbers vvv\n' + '-' * 79 + '\n'
                 '[e]\t <e as input>\n[pi]\t <pi as input>\n\n'
                 '\nOutput Settings vvv\n' + '-' * 79 + '\n'
-                '-sk, --script-kiddie\t <re5ult 100k5 1ik3 th15>\n'
+                '-sk, --script-kiddie\t <r35ult l00k5 l1k3 th15>\n'
                 '-mo, --morse-code\t <.-. . ... ..- .-.. - / .-.. --- --- -.- ... / .-.. .. -.- . / - .... .. ...>\n'
                 # source for more when implemented http://kaomoji.ru/en/
                 '-em, --emoticons\t <result gets one of these (´ ω `@)>\n'
