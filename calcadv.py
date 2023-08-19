@@ -107,7 +107,9 @@ def op_list(args):
             print('\n>>> [*] Clearing . . .\n')
             memory.clear()
             print('>>> [*] Memory cleared <3\n')
-        elif currentArgument in ('-g', '--github'):
+        elif currentArgument in ('-c', '--clear'):
+            clear_screen()
+        elif currentArgument in ('-git', '--github'):
             url = 'https://github.com/pwnedbyisa/advanced-calc-cli'
             webbrowser.open(url)
         elif currentArgument in ('-gm', '--graphing-mode'):
@@ -128,6 +130,10 @@ def op_list(args):
 
     except Exception as e:
         print('\n>>> Error:', str(e) + '\n' + '\n>>> Please use the -h or --help argument to see proper formatting\n')
+
+
+def clear_screen():
+    print("\033c")
 
 
 # this is a decorator, no I don't really understand how it works but it does
@@ -467,7 +473,7 @@ def main():
                 '-mr, --memory-recall\t <recall previous result(s) (up to 10)>\n'
                 '-mc, --memory-clear\t <clear all saved results>\n\n'
                 '\nHelp/ Resources vvv\n' + '-' * 79 + '\n'
-                '-h, --help\t <help menu>\n-g, --github\t <redirect to github repo>'
+                '-h, --help\t <help menu>\n-c, --clear\t <clear screen>\n-git, --github\t <redirect to github repo>'
             )
         else:
             args = currentArgument.split(' ')
