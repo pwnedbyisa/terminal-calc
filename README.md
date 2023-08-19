@@ -6,7 +6,7 @@
 
 ### Currently Working On
  - usability
- - graphing? possibly
+ - graphing
 
 ### Later additions
  - probably language conversion
