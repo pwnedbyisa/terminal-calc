@@ -1,18 +1,30 @@
 import math
 import webbrowser
+import random
 
 # to do
 # input numbers
-# output custom
+# script kiddie and morse mode
 memory = []
+em_list = ['<(￣︶￣)>', '(￢‿￢ )', '⸜( *ˊᵕˋ* )⸝', '(ﾉ´ з `)ノ',
+           '(*¯ ³¯*)♡', '(´꒳`)♡', '(＃￣ω￣)', '(҂ `з´ )', 'ᕕ( ᐛ )ᕗ',
+           '┐(‘～` )┌', '(¯ . ¯٥)', '(￣～￣;)', '(o´▽`o)ﾉ', 'ヾ( `ー´)シφ__',
+           '(＿ ＿*) Z z z', 'ʕ •̀ ω •́ ʔ', '~(˘▽˘~)', '( ˘ ɜ˘) ♬♪♫',
+           '٩(ˊ〇ˋ*)و', '(￣^￣)ゞ', 'ଘ(੭ˊ꒳ˋ)੭✧']
+emoticon_mode_enabled = False
 
 
 def op_list(args):
+    global emoticon_mode_enabled
+
     try:
         currentArgument = args[0]
         # args[1] = num and args[2] = num2
 
-        if currentArgument in ('-a', '--add'):
+        if currentArgument in ('-em', '--emoticons'):
+            emoticon_mode_enabled = True
+            print('\n[*] Emoticon mode enabled! There are 21 total; can you catch them all? (´ ∀ ` *)\n')
+        elif currentArgument in ('-a', '--add'):
             print('\n[*] Calculating . . .\n')
             add(args[1], args[2])
         elif currentArgument in ('-s', '--subtract'):
@@ -74,6 +86,10 @@ def op_list(args):
             args[1] = str(math.pi)
         elif currentArgument == '[e]':
             args[1] = str(math.e)
+        elif currentArgument in ('-sk', '--script-kiddie'):
+            print('This feature isn\'t available yet </3')
+        elif currentArgument in ('-mo', '--morse-code'):
+            print('This feature isn\'t available yet </3')
         elif currentArgument in ('-mr', '--memory-recall'):
             print('\n[*] Recovering . . .\n')
             if memory:
@@ -95,231 +111,280 @@ def op_list(args):
         print('Error:', str(e) + '\n' + 'Please use the -h or --help argument to see proper formatting')
 
 
+def add_em(func):
+    def wrapper(*args, **kwargs):
+        result = func(*args, **kwargs)
+        if emoticon_mode_enabled:
+            emoticon = random.choice(em_list)
+            result_em = f'{result}\t {emoticon}'
+        else:
+            result_em = result
+
+        print(result_em)  # Print the result
+        return result  # Return the original result
+
+    return wrapper
+
+
+@add_em
 def add(num, num2):
     try:
         num = float(num)
         num2 = float(num2)
         addition = num + num2
         memory.append(addition)
-        print(f'The sum of {num} and {num2} is {addition}\n')
+
         if len(memory) > 10:
             memory.pop(0)
+        return f'The sum of {num} and {num2} is {addition}\n'
 
     except ValueError:
         print('Invalid input. Please provide two valid numbers.\n')
 
 
+@add_em
 def sub(num, num2):
     try:
         num = float(num)
         num2 = float(num2)
         subtract = num - num2
         memory.append(subtract)
-        print(f'{num} minus {num2} is {subtract}\n')
+
         if len(memory) > 10:
             memory.pop(0)
+        return f'{num} minus {num2} is {subtract}\n'
 
     except ValueError:
         print('Invalid input. Please provide two valid numbers.\n')
 
 
+@add_em
 def mult(num, num2):
     try:
         num = float(num)
         num2 = float(num2)
         multiply = num * num2
         memory.append(multiply)
-        print(f'{num} multiplied by {num2} is {multiply}\n')
+
         if len(memory) > 10:
             memory.pop(0)
+        return f'{num} multiplied by {num2} is {multiply}\n'
 
     except ValueError:
         print('Invalid input. Please provide two valid numbers.\n')
 
 
+@add_em
 def div(num, num2):
     try:
         num = float(num)
         num2 = float(num2)
         divide = num / num2
         memory.append(divide)
-        print(f'{num} divided by {num2} is {divide}\n')
+
         if len(memory) > 10:
             memory.pop(0)
+        return f'{num} divided by {num2} is {divide}\n'
 
     except ValueError:
         print('Invalid input. Please provide two valid numbers.\n')
 
 
+@add_em
 def expo(num, num2):
     try:
         num = float(num)
         num2 = float(num2)
         exp = num ** num2
         memory.append(exp)
-        print(f'{num} to the {num2} is {exp}\n')
+
         if len(memory) > 10:
             memory.pop(0)
+        return f'{num} to the {num2} is {exp}\n'
 
     except ValueError:
         print('Invalid input. Please provide two valid numbers.\n')
 
 
+@add_em
 def sqrt(num):
     try:
         num = float(num)
         sqt = num ** 0.5
         memory.append(sqt)
-        print(f'The square root of {num} is {sqt}\n')
+
         if len(memory) > 10:
             memory.pop(0)
+        return f'The square root of {num} is {sqt}\n'
 
     except ValueError:
         print('Invalid input. Please provide a valid number.\n')
 
 
+@add_em
 def absv(num):
     try:
         num = float(num)
         absval = abs(num)
         memory.append(absval)
-        print(f'The absolute value of {num} is {absval}\n')
+
         if len(memory) > 10:
             memory.pop(0)
+        return f'The absolute value of {num} is {absval}\n'
 
     except ValueError:
         print('Invalid input. Please provide a valid number.\n')
 
 
+@add_em
 def rad(num):
     try:
         num = float(num)
         radian = math.radians(num)
         memory.append(radian)
-        print(f'{num} degrees is {radian} radians\n')
+
         if len(memory) > 10:
             memory.pop(0)
+        return f'{num} degrees is {radian} radians\n'
 
     except ValueError:
         print('Invalid input. Please provide a valid number.\n')
 
 
+@add_em
 def deg(num):
     try:
         num = float(num)
         degree = math.degrees(num)
         memory.append(degree)
-        print(f'{num} radians is {degree} degrees\n')
+
         if len(memory) > 10:
             memory.pop(0)
+        return f'{num} radians is {degree} degrees\n'
 
     except ValueError:
         print('Invalid input. Please provide a valid number.\n')
 
 
+@add_em
 def fact(num):
     try:
         num = int(num)
         factorial = math.factorial(num)
         memory.append(factorial)
-        print(f'{num} factorial is {factorial}\n')
+
         if len(memory) > 10:
             memory.pop(0)
+        return f'{num} factorial is {factorial}\n'
 
     except ValueError:
         print('Invalid input. Please provide a valid integer (max 1558).\n')
 
 
+@add_em
 def cos(angle):
     try:
         angle = float(angle)
         cosine = math.cos(math.radians(angle))
         memory.append(cosine)
-        print(f'The cosine of {angle} degrees is {cosine} radians\n')
+
         if len(memory) > 10:
             memory.pop(0)
+        return f'The cosine of {angle} degrees is {cosine} radians\n'
 
     except ValueError:
         print('Invalid input. Please provide a valid number for the angle.\n')
 
 
+@add_em
 def sin(angle):
     try:
         angle = float(angle)
         sine = math.sin(math.radians(angle))
         memory.append(sine)
-        print(f'The sine of {angle} degrees is {sine} radians\n')
+
         if len(memory) > 10:
             memory.pop(0)
+        return f'The sine of {angle} degrees is {sine} radians\n'
 
     except ValueError:
         print('Invalid input. Please provide a valid number for the angle.\n')
 
 
+@add_em
 def tan(angle):
     try:
         angle = float(angle)
         tangent = math.tan(math.radians(angle))
         memory.append(tangent)
-        print(f'The tangent of {angle} degrees is {tangent} radians\n')
+
         if len(memory) > 10:
             memory.pop(0)
+        return f'The tangent of {angle} degrees is {tangent} radians\n'
 
     except ValueError:
         print('Invalid input. Please provide a valid number for the angle.\n')
 
 
+@add_em
 def arcsin(angle):
     try:
         angle = float(angle)
         arcsinr = math.asin(angle)
         arcsind = math.degrees(math.asin(angle))
         memory.append(f'{arcsinr}, {arcsind}')
-        print(f'The inverse sine of {angle} is  {arcsind} in degrees and {arcsinr} in radians\n')
+
         if len(memory) > 10:
             memory.pop(0)
+        return f'The inverse sine of {angle} is  {arcsind} in degrees and {arcsinr} in radians\n'
 
     except ValueError:
         print('Invalid input. Please provide a valid number within the domain [-1, 1].\n')
 
 
+@add_em
 def arccos(angle):
     try:
         angle = float(angle)
         arccosd = math.degrees(math.acos(angle))
         arccosr = math.acos(angle)
         memory.append(f'{arccosr}, {arccosd}')
-        print(f'The inverse cosine of {angle} is {arccosd} in degrees and {arccosr} in radians\n')
+
         if len(memory) > 10:
             memory.pop(0)
+        return f'The inverse cosine of {angle} is {arccosd} in degrees and {arccosr} in radians\n'
 
     except ValueError:
         print('Invalid input. Please provide a valid number within the domain [-1, 1].\n')
 
 
+@add_em
 def arctan(angle):
     try:
         angle = float(angle)
         arctand = math.degrees(math.atan(angle))
         arctanr = math.atan(angle)
         memory.append(f'{arctanr}, {arctand}')
-        print(f'The inverse tangent of {angle} is {arctand} in degrees and {arctanr} in radians\n')
+
         if len(memory) > 10:
             memory.pop(0)
+        return f'The inverse tangent of {angle} is {arctand} in degrees and {arctanr} in radians\n'
 
     except ValueError:
         print('Invalid input. Please provide a valid number within the domain.\n')
 
 
+@add_em
 def logs(num, base):
     try:
         num = float(num)
         base = float(base)
         log = math.log(num, base)
         memory.append(log)
-        print(f'The logarithm of {num} base {base} is {log}\n')
+
         if len(memory) > 10:
             memory.pop(0)
+        return f'The logarithm of {num} base {base} is {log}\n'
 
     except ValueError:
         print('Invalid input. Format <number> <base>.\n')
