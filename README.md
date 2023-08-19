@@ -5,11 +5,13 @@
  - stores memory, has customized output, it's pretty, that's about it
 
 ### Currently Working On
- - pi and e input
- - morse output (might skip)
+ - usability
+ - graphing? possibly
 
 ### Later additions
- - graphing? idk
+ - probably language conversion
 
 ## Misc
+ - please keep in mind this is a learning projects for me
+ - as in i'm still learning how to code and that's pretty obvious (imo)
  - yeah ik my code can be optimized like a lot js close your eyes idk 
