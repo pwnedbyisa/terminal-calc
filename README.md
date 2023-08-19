@@ -2,6 +2,7 @@
 
 ### Functions
  - basically a command line calulator with some advanced functions (ex// inverse trig) and a lil personality
+ - stores memory, has customized output, it's pretty, that's about it
 
 ### Currently Working On
  - pi and e input
