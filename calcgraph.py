@@ -25,13 +25,14 @@ def eval_expression(expression, x):
 def generate_graph(expression, x_range=(-10, 10), width=40, height=20):
     graph = ''
     x_min, x_max = x_range
+    x_step = (x_max - x_min) / width
 
     for y in range(height, -1, -1):
         row = ''
         for x in range(width):
-            x_val = x_min + (x / width) * (x_max - x_min)
+            x_val = x_min + x * x_step
             y_val = eval_expression(expression, x_val)
-            if y_val is not None and abs(y_val - y) < 0.5:
+            if y_val is not None and abs(y_val - y) <= 0.75:  # higher means more points
                 row += '*'
             else:
                 row += ' '
