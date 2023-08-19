@@ -5,7 +5,7 @@
 
 ### Currently Working On
  - pi and e input
- - script kiddie and morse output
+ - morse output (might skip)
 
 ### Later additions
  - graphing? idk
