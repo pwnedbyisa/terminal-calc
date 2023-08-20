@@ -451,26 +451,26 @@ def main():
                   'Example: -a [pi] 23 \n' + '-' * 79)
             print(
                 '\n\nBasic Functions vvv\n' + '-' * 79 + '\n'
-                '-a, --add\t <addition>\n-s, --subtract\t <subtraction>\n'
-                '-m, --multiply\t <multiplication>\n-d, --divide\t <division>\n-ex, --exponent\t <exponent, [num] [exp]>\n'
+                '-a, --add\t\t <addition>\n-s, --subtract\t\t <subtraction>\n'
+                '-m, --multiply\t\t <multiplication>\n-d, --divide\t\t <division>\n-ex, --exponent\t\t <exponent, [num] [exp]>\n'
                 '-sq, --square-root\t <square root>\n-abs, --abs-value\t <absolute value>\n'
-                '-l, --log\t <logarithm, [num] [base]>\n-f, --factorial\t <return factorial (!) value>\n\n'
+                '-l, --log\t\t <logarithm, [num] [base]>\n-f, --factorial\t\t <return factorial (!) value>\n\n'
                 '\nTrig Functions vvv\n' + '-' * 79 + '\n'
                 '-rad, --rad-from-deg\t <output radians from degrees>\n-deg, --deg-from-rad\t <output degrees from radians>\n'
-                '-S, --sine\t <sine>\n-C, --cosine\t <cosine>\n-T, --tangent\t <tangent>\n'
-                '-aS, --arc-sin\t <inverse of sine>\n-aC, --arc-cos\t <inverse of cosine>\n-aT, --arc-tan\t <inverse of tangent>\n\n'
+                '-S, --sine\t\t <sine>\n-C, --cosine\t\t <cosine>\n-T, --tangent\t\t <tangent>\n'
+                '-aS, --arc-sin\t\t <inverse of sine>\n-aC, --arc-cos\t\t <inverse of cosine>\n-aT, --arc-tan\t\t <inverse of tangent>\n\n'
                 '\nInput Numbers vvv\n' + '-' * 79 + '\n'
                 '[e]\t <e as input>\n[pi]\t <pi as input>\n\n'
                 '\nOutput Settings vvv\n' + '-' * 79 + '\n'
                 '-sk, --script-kiddie\t <r35ult l00k5 l1k3 th15>\n'
                 # source for more when implemented http://kaomoji.ru/en/
                 '-em, --emoticons\t <result gets one of these (´ ω `@)>\n'
-                '-gm, --graphing-mode\t <graph an equation - ex// -gm y=3x+2>'
+                '-gm, --graphing-mode\t <graph an equation - ex// -gm y=3x+2>\n'
                 '\nMemory vvv\n' + '-' * 79 + '\n'
                 '-mr, --memory-recall\t <recall previous result(s) (up to 10)>\n'
                 '-mc, --memory-clear\t <clear all saved results>\n\n'
                 '\nHelp/ Resources vvv\n' + '-' * 79 + '\n'
-                '-h, --help\t <help menu>\n-c, --clear\t <clear screen>\n-git, --github\t <redirect to github repo>'
+                '-h, --help\t <help menu>\n-c, --clear\t <clear screen>\n-git, --github\t <redirect to github repo>\n'
             )
         else:
             args = currentArgument.split(' ')
