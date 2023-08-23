@@ -5,8 +5,8 @@
  - stores memory, has customized output, it's pretty, that's about it
 
 ### Currently Working On
- - usability
- - graphing
+ - usability (readability)
+ - graphing (there's currently no tick marks... or axes... or origin)
 
 ### Later additions
  - probably language conversion
