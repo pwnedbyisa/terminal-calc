@@ -1,5 +1,10 @@
 ## advanced-calc-cli (WIP)
 
+### Running It
+- git clone
+- cd into the directory
+- python3 calcadv.py
+
 ### Functions
  - basically a command line calulator with some advanced functions (ex// inverse trig) and a lil personality
  - stores memory, has customized output, it's pretty, that's about it
