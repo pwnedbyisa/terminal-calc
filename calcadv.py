@@ -87,7 +87,7 @@ def op_list(args):
             angle = args[1]
             arccos(angle)
         elif currentArgument in ('-aT', '--arc-tan'):
-            print('\n>>>[*] Calculating . . .\n')
+            print('\n>>> [*] Calculating . . .\n')
             angle = args[1]
             arctan(angle)
         elif currentArgument in ('-l', '--log'):
