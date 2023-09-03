@@ -1,4 +1,4 @@
-## advanced-calc-cli (WIP)
+## terminal calculator (WIP)
 
 ### Running It
 - git clone
