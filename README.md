@@ -1,13 +1,61 @@
 ## terminal calculator (WIP)
 
-### Running It
-- git clone
-- cd into the directory
-- python3 calcadv.py
+### Installation
+- `git clone`
+- cd into the `terminal-calc` directory
+- `python3 calcadv.py`
 
 ### Functions
- - basically a command line calulator with some advanced functions (ex// inverse trig) and a lil personality
- - stores memory, has customized output, it's pretty, that's about it
+#### Basic
+```
+-a, --add          <addition>
+-s, --subtract     <subtraction>
+-m, --multiply     <multiplication>
+-d, --divide       <division>
+-ex, --exponent    <exponent, [num] [exp]>
+-sq, --square-root <square root>
+-abs, --abs-value  <absolute value>
+-l, --log          <logarithm, [num] [base]>
+-f, --factorial    <return factorial (!) value>
+```
+
+#### Trig
+```
+-rad, --rad-from-deg <output radians from degrees>
+-deg, --deg-from-rad <output degrees from radians>
+-S, --sine           <sine>
+-C, --cosine         <cosine>
+-T, --tangent        <tangent>
+-aS, --arc-sin       <inverse of sine>
+-aC, --arc-cos       <inverse of cosine>
+-aT, --arc-tan       <inverse of tangent>
+```
+
+#### Input Numbers
+```
+[e]  <e as input>
+[pi] <pi as input>
+```
+
+#### Output Settings
+```
+-sk, --script-kiddie  <r35ult l00k5 l1k3 th15>
+-em, --emoticons      <result gets one of these (´ ω ´@)>
+-gm, --graphing-mode  <graph an equation - ex// -gm y=3x+2>` (heavy on the WIP w this one
+```
+
+#### Memory
+```
+-mr, --memory-recall  <recall previous result(s) (up to 10)>
+-mc, --memory-clear   <clear all saved results>
+```
+
+#### Help/ Resources
+```
+-h, --help     <help menu>
+-c, --clear    <clear screen>
+-git, --github <redirect to github repo>
+```
 
 ### Currently Working On
  - usability (readability)
