@@ -4,7 +4,7 @@
 - `git clone`
 - cd into the `terminal-calc` directory
 - `python3 calcadv.py`
-
+___
 ### Functions
 #### Basic
 ```
@@ -56,14 +56,14 @@
 -c, --clear    <clear screen>
 -git, --github <redirect to github repo>
 ```
-
+___
 ### Currently Working On
  - usability (readability)
  - graphing (there's currently no tick marks... or axes... or origin)
-
+___
 ### Later additions
  - probably language conversion
-
+___
 ### Misc
  - please keep in mind this is a learning projects for me
  - as in i'm still learning how to code and that's pretty obvious (imo)
