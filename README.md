@@ -1,9 +1,9 @@
 ## terminal calculator (WIP)
 
 ### Installation
-- `git clone`
+- `git clone https://github.com/pwnedbyisa/terminal-calc.git`
 - cd into the `terminal-calc` directory
-- `chmod -x calcadv.py`
+- `chmod -x calcadv.py` (linux)
 - `python3 calcadv.py`
 ___
 ### Functions
