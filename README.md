@@ -3,6 +3,7 @@
 ### Installation
 - `git clone`
 - cd into the `terminal-calc` directory
+- `chmod -x calcadv.py`
 - `python3 calcadv.py`
 ___
 ### Functions
