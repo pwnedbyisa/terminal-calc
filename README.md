@@ -1,4 +1,4 @@
-## terminal calculator (WIP)
+## command-line calculator 
 
 <p align="center">
  <img src="https://github.com/pwnedbyisa/terminal-calc/assets/138353745/c6031d80-d67c-47eb-b601-92f4ba57516c" alt="header image (that isn't rendering right if you're seeing this)"/>
