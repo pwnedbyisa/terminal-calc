@@ -1,8 +1,13 @@
 ## terminal calculator (WIP)
 
-![calcgit](https://github.com/pwnedbyisa/terminal-calc/assets/138353745/c6031d80-d67c-47eb-b601-92f4ba57516c)
+<p align="center">
+ <img src="https://github.com/pwnedbyisa/terminal-calc/assets/138353745/c6031d80-d67c-47eb-b601-92f4ba57516c" alt="header image (that isn't rendering right if you're seeing this)"/>
+</p>
+
+___
 
 ### Installation
+> Python 3 should be installed on your machine for this to work optimally; I haven't fully tested for dependencies so keep that in mind
 - `git clone https://github.com/pwnedbyisa/terminal-calc.git`
 - cd into the `terminal-calc` directory
 - `chmod -x calcadv.py` (linux)
@@ -68,6 +73,5 @@ ___
  - probably language conversion
 ___
 ### Misc
- - please keep in mind this is a learning projects for me
- - as in i'm still learning how to code and that's pretty obvious (imo)
- - yeah ik my code can be optimized like a lot js close your eyes idk 
+> yeah ik my code can be optimized like a lot js close your eyes idk <br>
+> I'm learning as I go so any suggestions are welcome!
