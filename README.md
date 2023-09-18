@@ -1,5 +1,7 @@
 ## terminal calculator (WIP)
 
+![calcgit](https://github.com/pwnedbyisa/terminal-calc/assets/138353745/c6031d80-d67c-47eb-b601-92f4ba57516c)
+
 ### Installation
 - `git clone https://github.com/pwnedbyisa/terminal-calc.git`
 - cd into the `terminal-calc` directory
