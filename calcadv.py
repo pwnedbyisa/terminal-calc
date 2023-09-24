@@ -139,8 +139,8 @@ def op_list(args):
         else:
             print_color('\n>>> Argument Not Recognized: -h or --help for help\n')
 
-    except Exception as e:
-        print_color('\n>>> Error:' + str(e) + '\n' + '\n>>> Please use the -h or --help argument to see proper formatting\n')
+    except IndexError:
+        print_color('\n>>> Command Not Recognized/ Missing Parameters: use -h or --help for proper formatting\n')
 
 
 def clear_screen():
