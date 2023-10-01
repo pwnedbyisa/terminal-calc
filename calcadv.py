@@ -160,6 +160,9 @@ def out(func):
 
         result = func(*args, **kwargs)
 
+        if result is None:
+            result = ''  # fixing the nonetype errors w inverse trig domain handling
+
         if sk_mode_enabled:
             for replace_tuple in sk_replace:
                 char_to_replace, replacement = replace_tuple
