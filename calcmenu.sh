@@ -1,7 +1,5 @@
 #!/bin/bash
 
-# none of the options have logic attached yet (so this does nothing)
-
 title="Options"
 opt1="Colors/Theme"
 opt2="Language"
@@ -44,6 +42,24 @@ submenu_opt1() {
     tput cup 6 19
     echo "            ║"
     echo "╚==============================╝"
+}
+
+get_color() {
+    local option="$1"
+    local color
+
+    case "$option" in
+        "Red") color='\033[0;31m' ;;
+        "Orange") color='\033[0;33m' ;;
+        "Yellow") color='\033[0;33m' ;;
+        "Green") color='\033[0;32m' ;;
+        "Blue") color='\033[0;34m' ;;
+        "Purple") color='\033[0;35m' ;;
+        "White") color='\033[0;37m' ;;
+    esac
+
+    tput cup 9 0
+    echo "$color"
 }
 
 submenu_opt2() {
@@ -92,6 +108,7 @@ box() {
 end_screen() {
     tput cnorm
     tput cup 9 0
+    echo
     stty echo
     exit 0
 }
@@ -150,7 +167,6 @@ while true; do
 
     case "$key" in
         q)  # q key - quit
-            echo
             break
             ;;
         b)
@@ -173,4 +189,18 @@ while true; do
             fi
             ;;
     esac
+
+    if [ "$sub1" == true ]; then
+        # handle submenu option selection for Colors/Theme
+        case "$key" in
+            "") # enter key
+                selected_color="${submenu_opt1[sub1_highlighted]}"
+
+                # return the selected color
+                get_color "$selected_color"
+                ;;
+        esac
+    fi
 done
+
+
