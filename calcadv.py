@@ -1,24 +1,27 @@
 import math
-import webbrowser
+import subprocess
+import webbrowser  # dependency
 import random
+import os
 import calcgraph
 
-
 COLORS = {
-    'cyan': '\033[0;36m',  # purple '\033[95m',
+    'default': '\033[0;36m',  # cyan
     'reset': '\033[0m',  # reset text color to default
 }
 
+color = COLORS['default']
+
 
 def print_color(text):
-    print(COLORS['cyan'] + text + COLORS['reset'])
+    print(color + text + COLORS['reset'])
 
 
 memory = []
 
 em_list = ['<(￣︶￣)>', '(￢‿￢ )', '⸜( *ˊᵕˋ* )⸝', '(ﾉ´ з `)ノ',
            '(*¯ ³¯*)♡', '(´꒳`)♡', '(＃￣ω￣)', '(҂ `з´ )', 'ᕕ( ᐛ )ᕗ',
-           '┐(‘～` )┌', '(¯ . ¯٥)', '(￣～￣;)', '(o´▽`o)ﾉ', 'ヾ( `ー´)シφ__',
+           '┐(`～` )┌', '(¯ . ¯٥)', '(￣～￣;)', '(o´▽`o)ﾉ', 'ヾ( `ー´)シφ__',
            '(＿ ＿*) Z z z', 'ʕ •̀ ω •́ ʔ', '~(˘▽˘~)', '( ˘ ɜ˘) ♬♪♫',
            '٩(ˊ〇ˋ*)و', '(￣^￣)ゞ', 'ଘ(੭ˊ꒳ˋ)੭✧']
 sk_replace = [('a', '4'), ('e', '3'), ('i', '1'), ('o', '0'), ('s', '5')]
@@ -30,6 +33,7 @@ sk_mode_enabled = False
 def op_list(args):
     global emoticon_mode_enabled
     global sk_mode_enabled
+    global color
 
     try:
         currentArgument = args[0]
@@ -129,6 +133,18 @@ def op_list(args):
             if left.lower() == 'y':
                 graph = calcgraph.generate_graph(right)
                 print_color(graph)
+        elif currentArgument in ('-o', '--options'):  # yeah this doesn't work
+            if 'nt' in os.name:
+                print_color('bat file not implemented yet')
+            elif 'posix' in os.name:
+                subprocess.call('./calcmenu.sh')
+                try:
+                    color = subprocess.check_output(["./calcmenu.sh"], universal_newlines=True).strip()
+                except subprocess.CalledProcessError:
+                    print('[*] Bash script return error, default color enabled')
+                    color = COLORS['default']
+            else:
+                print_color('os not detected')
         # pi and e at the bottom because they interfere w other functions and cause list index out of range errors
         elif args[1] == '[pi]':
             args[1] = float(math.pi)
@@ -147,7 +163,7 @@ def clear_screen():
     print_color("\033c")
 
 
-# this is a decorator, no I don't really understand how it works but it does
+# decorator for emoticon and sk modes (i partially understand how it works)
 def out(func):
     def wrapper(*args, **kwargs):
 
@@ -174,6 +190,7 @@ def out(func):
 
         print_color(result)
         return result
+
     return wrapper
 
 
@@ -187,7 +204,7 @@ def add(num, num2):
 
         if len(memory) > 10:
             memory.pop(0)
-        return f'>>> The sum of {num} and {num2} is {addition}\n'
+        return f'>>> The sum of {num} and {num2} equals {addition}\n'
 
     except ValueError:
         print_color('>>> Invalid input. Please provide two valid numbers.\n')
@@ -203,7 +220,7 @@ def sub(num, num2):
 
         if len(memory) > 10:
             memory.pop(0)
-        return f'>>> {num} minus {num2} is {subtract}\n'
+        return f'>>> {num} minus {num2} equals {subtract}\n'
 
     except ValueError:
         print_color('>>> Invalid input. Please provide two valid numbers.\n')
@@ -219,7 +236,7 @@ def mult(num, num2):
 
         if len(memory) > 10:
             memory.pop(0)
-        return f'>>> {num} multiplied by {num2} is {multiply}\n'
+        return f'>>> {num} multiplied by {num2} equals {multiply}\n'
 
     except ValueError:
         print_color('>>> Invalid input. Please provide two valid numbers.\n')
@@ -235,7 +252,7 @@ def div(num, num2):
 
         if len(memory) > 10:
             memory.pop(0)
-        return f'>>> {num} divided by {num2} is {divide}\n'
+        return f'>>> {num} divided by {num2} equals {divide}\n'
 
     except ValueError:
         print_color('>>> Invalid input. Please provide two valid numbers.\n')
@@ -251,7 +268,7 @@ def expo(num, num2):
 
         if len(memory) > 10:
             memory.pop(0)
-        return f'>>> {num} to the {num2} is {exp}\n'
+        return f'>>> {num} to the {num2} equals {exp}\n'
 
     except ValueError:
         print_color('>>> Invalid input. Please provide two valid numbers.\n')
@@ -266,7 +283,7 @@ def sqrt(num):
 
         if len(memory) > 10:
             memory.pop(0)
-        return f'>>> The square root of {num} is {sqt}\n'
+        return f'>>> The square root of {num} equals {sqt}\n'
 
     except ValueError:
         print_color('>>> Invalid input. Please provide a valid number.\n')
@@ -281,7 +298,7 @@ def absv(num):
 
         if len(memory) > 10:
             memory.pop(0)
-        return f'>>> The absolute value of {num} is {absval}\n'
+        return f'>>> The absolute value of {num} equals {absval}\n'
 
     except ValueError:
         print_color('>>> Invalid input. Please provide a valid number.\n')
@@ -296,7 +313,7 @@ def rad(num):
 
         if len(memory) > 10:
             memory.pop(0)
-        return f'>>> {num} degrees is {radian} radians\n'
+        return f'>>> {num} degrees equals {radian} radians\n'
 
     except ValueError:
         print_color('>>> Invalid input. Please provide a valid number.\n')
@@ -311,7 +328,7 @@ def deg(num):
 
         if len(memory) > 10:
             memory.pop(0)
-        return f'>>> {num} radians is {degree} degrees\n'
+        return f'>>> {num} radians equals {degree} degrees\n'
 
     except ValueError:
         print_color('>>> Invalid input. Please provide a valid number.\n')
@@ -326,7 +343,7 @@ def fact(num):
 
         if len(memory) > 10:
             memory.pop(0)
-        return f'>>> {num} factorial is {factorial}\n'
+        return f'>>> {num} factorial equals {factorial}\n'
 
     except ValueError:
         print_color('>>> Invalid input. Please provide a valid integer (max 1558).\n')
@@ -341,7 +358,7 @@ def cos(angle):
 
         if len(memory) > 10:
             memory.pop(0)
-        return f'>>> The cosine of {angle} degrees is {cosine} radians\n'
+        return f'>>> The cosine of {angle} degrees equals {cosine} radians\n'
 
     except ValueError:
         print_color('>>> Invalid input. Please provide a valid number for the angle.\n')
@@ -356,7 +373,7 @@ def sin(angle):
 
         if len(memory) > 10:
             memory.pop(0)
-        return f'>>> The sine of {angle} degrees is {sine} radians\n'
+        return f'>>> The sine of {angle} degrees equals {sine} radians\n'
 
     except ValueError:
         print_color('>>> Invalid input. Please provide a valid number for the angle.\n')
@@ -371,7 +388,7 @@ def tan(angle):
 
         if len(memory) > 10:
             memory.pop(0)
-        return f'>>> The tangent of {angle} degrees is {tangent} radians\n'
+        return f'>>> The tangent of {angle} degrees equals {tangent} radians\n'
 
     except ValueError:
         print_color('>>> Invalid input. Please provide a valid number for the angle.\n')
@@ -387,7 +404,7 @@ def arcsin(angle):
 
         if len(memory) > 10:
             memory.pop(0)
-        return f'>>> The inverse sine of {angle} is  {arcsind} in degrees and {arcsinr} in radians\n'
+        return f'>>> The inverse sine of {angle} equals  {arcsind} in degrees and {arcsinr} in radians\n'
 
     except ValueError:
         print_color('>>> Invalid input. Please provide a valid number within the domain [-1, 1].\n')
@@ -403,7 +420,7 @@ def arccos(angle):
 
         if len(memory) > 10:
             memory.pop(0)
-        return f'>>> The inverse cosine of {angle} is {arccosd} in degrees and {arccosr} in radians\n'
+        return f'>>> The inverse cosine of {angle} equals {arccosd} in degrees and {arccosr} in radians\n'
 
     except ValueError:
         print_color('>>> Invalid input. Please provide a valid number within the domain [-1, 1].\n')
@@ -419,7 +436,7 @@ def arctan(angle):
 
         if len(memory) > 10:
             memory.pop(0)
-        return f'>>> The inverse tangent of {angle} is {arctand} in degrees and {arctanr} in radians\n'
+        return f'>>> The inverse tangent of {angle} equals {arctand} in degrees and {arctanr} in radians\n'
 
     except ValueError:
         print_color('>>> Invalid input. Please provide a valid number within the domain.\n')
@@ -435,7 +452,7 @@ def logs(num, base):
 
         if len(memory) > 10:
             memory.pop(0)
-        return f'>>> The logarithm of {num} base {base} is {log}\n'
+        return f'>>> The logarithm of {num} base {base} equals {log}\n'
 
     except ValueError:
         print_color('>>> Invalid input. Format <number> <base>.\n')
@@ -457,7 +474,7 @@ def main():
     while True:
         currentArgument = input(prompt)
 
-        if currentArgument in ('exit', 'quit', 'bye', 'peace', 'close'):
+        if currentArgument in ('exit', 'quit', 'bye', 'peace', 'close', 'q'):
             print_color("\n>>> Exiting CalcCLI. Bye!\n")
             break
         elif currentArgument in ('-h', '--help'):
@@ -484,7 +501,7 @@ def main():
                 '-mr, --memory-recall\t <recall previous result(s) (up to 10)>\n'
                 '-mc, --memory-clear\t <clear all saved results>\n\n'
                 '\nHelp/ Resources vvv\n' + '-' * 79 + '\n'
-                '-h, --help\t <help menu>\n-c, --clear\t <clear screen>\n-git, --github\t <redirect to github repo>\n'
+                '-h, --help\t <help menu>\n-o, --options\t <options menu>\n-c, --clear\t <clear screen>\n-git, --github\t <redirect to github repo>\n'                                                                                                                                                                                                                                '-h, --help\t <help menu>\n-o, --options\t <settings menu>\n-c, --clear\t <clear screen>\n-git, --github\t <redirect to github repo>\n'
             )
         else:
             args = currentArgument.split(' ')
