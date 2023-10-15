@@ -1,13 +1,6 @@
-# THIS IS A WORK IN PROGRESS
-# AKA IT DOES NOT WORK YET
-# AKA IGNORE THIS UNTIL THE MESSAGE IS GONE
-# thanks!
-
 #!/bin/bash
 
-# rn theres one char showing through when i switch back to main idk why
-# also the box function doesn't deal w overwritten lines well
-# and none of the options have logic attached yet
+# none of the options have logic attached yet (so this does nothing)
 
 title="Options"
 opt1="Colors/Theme"
@@ -30,11 +23,13 @@ print_opts() {
 }
 
 submenu_opt1() {
-    # Clear the previous submenu options
+    # clear the previous submenu options
     tput cup 5 0
-    printf " %s" " "  # Clear the row
+    printf " %s" " "
+    tput cup 5 0
+    echo -en "║ "
 
-    # Print the submenu options
+    # print the submenu options
     for ((i = 0; i < ${#submenu_opt1[@]}; i++)); do # iterates through the array, the lil #@ situation is the length
         if [ "$i" -eq "$sub1_highlighted" ]; then
             printf "\e[7m%s\e[0m " "${submenu_opt1[$i]}"
@@ -43,15 +38,20 @@ submenu_opt1() {
         fi
 
         if (( (i + 1) % 4 == 0 )); then
-            printf "\n  " # newline after every fourth opt
+            printf "\n║ " # newline after every fourth opt
         fi
     done
+    tput cup 6 19
+    echo "            ║"
+    echo "╚==============================╝"
 }
 
 submenu_opt2() {
     # clear the previous submenu options
     tput cup 5 0
-    printf " %s" " "  # clear the row
+    printf " %s" " "
+    tput cup 5 0
+    echo -en "║ "
 
     # print the submenu options
     for ((i = 0; i < ${#submenu_opt2[@]}; i++)); do
@@ -70,7 +70,7 @@ box() {
     local row=3
     # local num_lines=$(( ($(echo -e "$text" | wc -l) / 2) + 1 ))
 
-    # move cursor to correct row and overwrite content
+    # move cursor to correct row and overwrite content - ensures no reprints
     printf "\e[%d;0H" "$row"
 
     # top
@@ -80,6 +80,8 @@ box() {
     # sides
     echo "║$(printf ' %.0s' $(seq 1 "$len"))║" # empty line
     # for ((i = 1; i <= num_lines; i++)); do
+    printf "%$(($len - 1))s" "" # ensures all characters are overwritten when going back to main menu
+    tput cup 5 0
     echo "║ $text $(printf ' %.0s' $(seq 1 "$((len / 5))"))║"
 
     # bottom
@@ -148,12 +150,15 @@ while true; do
 
     case "$key" in
         q)  # q key - quit
+            echo
             break
             ;;
         b)
             sub1=false
             sub2=false
             highlighted=1
+            tput cup 7 0
+            printf "\r%80s" " " # moves cursor to beginning and prints 80 chars
             box "$highlighted"
             ;;
         "") # enter key
