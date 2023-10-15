@@ -5,7 +5,11 @@
 </p>
 
 ___
+### Overview
+Welcome to my overkill calculator! This is a lil command line tool I've been working on to expand my coding skillset (so if you see questionable formatting/ terribly written code, that's why) <br>
+I'm learning as I go so any suggestions are welcome!
 
+___
 ### Installation
 > Python 3 should be installed on your machine for this to work optimally; I haven't fully tested for dependencies so keep that in mind
 - `git clone https://github.com/pwnedbyisa/terminal-calc.git`
@@ -66,12 +70,10 @@ ___
 ```
 ___
 ### Currently Working On
- - usability (readability)
+ - bash and batch options menu for colors + language
+ - reducing dependencies
  - graphing (there's currently no tick marks... or axes... or origin)
 ___
 ### Later additions
- - probably language conversion
-___
-### Misc
-> yeah ik my code can be optimized like a lot js close your eyes idk <br>
-> I'm learning as I go so any suggestions are welcome!
+ - actually making the graphing thing usable
+
