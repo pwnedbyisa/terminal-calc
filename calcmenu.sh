@@ -1,47 +1,79 @@
 #!/bin/bash
 
-title="Options"
-opt1="Colors/Theme"
-opt2="Language"
-submenu_opt1=("Red" "Orange" "Yellow" "Green" "Blue" "Purple" "White")
-submenu_opt2=("English" "Spanish" "French")
+title="[ -- Options -- ]"
+opt1=">> Colors/Theme"
+opt2=">> Language"
+submenu_opt1=(">> Red" ">> Orange" ">> Yellow" ">> Green" ">> Blue" ">> Purple" ">> White")
+submenu_opt2=(">> English" ">> Spanish" ">> French")
 
+main=true
 sub1=false
 sub2=false
 
-# prints options menu with highlighting
 print_opts() {
     local option1="$1"
 
     if [ "$option1" == 1 ]; then
-        printf "\e[7m%s\e[0m \t%s\n" "$opt1" "$opt2"
+        printf "\e[7m%s\e[0m%s\n\n%s\n" "${opt1:0:2}" "${opt1:2}" "$opt2" # indexed so only the first two chars are highlighted
     else
-        printf "%s \t\e[7m%s\e[0m\n" "$opt1" "$opt2"
+        printf "%s\n\n\e[7m%s\e[0m%s\n" "$opt1" "${opt2:0:2}" "${opt2:2}"
     fi
 }
 
-submenu_opt1() {
-    # clear the previous submenu options
-    tput cup 5 0
-    printf " %s" " "
-    tput cup 5 0
-    echo -en "║ "
-
-    # print the submenu options
-    for ((i = 0; i < ${#submenu_opt1[@]}; i++)); do # iterates through the array, the lil #@ situation is the length
+sub_1() {
+    tput cup 3 0
+    printf "\33[2K\r" # clear the line
+    for ((i = 0; i < ${#submenu_opt1[@]}; i++)); do
         if [ "$i" -eq "$sub1_highlighted" ]; then
-            printf "\e[7m%s\e[0m " "${submenu_opt1[$i]}"
+            printf "\e[7m%s\e[0m%s\n\n" "${submenu_opt1[$i]:0:2}" "${submenu_opt1[$i]:2}"
         else
-            printf "%s " "${submenu_opt1[$i]}"
-        fi
-
-        if (( (i + 1) % 4 == 0 )); then
-            printf "\n║ " # newline after every fourth opt
+            printf "\33[2K\r"
+            printf "%s\n\n" "${submenu_opt1[$i]}"
         fi
     done
-    tput cup 6 19
-    echo "            ║"
-    echo "╚==============================╝"
+}
+
+sub_2() {
+    tput cup 3 0
+    printf "\33[2K\r" # clear the line
+    for ((i = 0; i < ${#submenu_opt2[@]}; i++)); do
+        if [ "$i" -eq "$sub2_highlighted" ]; then
+            printf "\e[7m%s\e[0m%s\n\n" "${submenu_opt2[$i]:0:2}" "${submenu_opt2[$i]:2}"
+        else
+            printf "\33[2K\r"
+            printf "%s\n\n" "${submenu_opt2[$i]}"
+        fi
+    done
+}
+
+list() {
+    local text=$(print_opts "$highlighted")
+    local row=4
+
+    # clearing any remaining submenu
+    for ((i = 7; i < $(tput lines); i++)); do
+        tput cup "$i" 0
+        printf "%$(tput cols)s" " "
+    done
+
+    printf "\e[%d;0H" "$row"
+    echo -e "$text" # maintain formatting
+}
+
+sublist1() {
+    local text=$(sub_1 "$sub1_highlighted")
+    local row=4
+
+    printf "\e[%d;0H" "$row"
+    echo -e "$text"
+}
+
+sublist2() {
+    local text=$(sub_2 "$sub2_highlighted")
+    local row=4
+
+    printf "\e[%d;0H" "$row"
+    echo -e "$text"
 }
 
 get_color() {
@@ -49,65 +81,24 @@ get_color() {
     local color
 
     case "$option" in
-        "Red") color='\033[0;31m' ;;
-        "Orange") color='\033[0;33m' ;;
-        "Yellow") color='\033[0;33m' ;;
-        "Green") color='\033[0;32m' ;;
-        "Blue") color='\033[0;34m' ;;
-        "Purple") color='\033[0;35m' ;;
-        "White") color='\033[0;37m' ;;
+        ">> Red") color='\033[0;31m' ;;
+        ">> Orange") color='\033[0;33m' ;;
+        ">> Yellow") color='\033[0;33m' ;;
+        ">> Green") color='\033[0;32m' ;;
+        ">> Blue") color='\033[0;34m' ;;
+        ">> Purple") color='\033[0;35m' ;;
+        ">> White") color='\033[0;37m' ;;
     esac
 
-    tput cup 9 0
-    echo "$color"
+    exp_color="$color"
+    export exp_color
 }
 
-submenu_opt2() {
-    # clear the previous submenu options
-    tput cup 5 0
-    printf " %s" " "
-    tput cup 5 0
-    echo -en "║ "
-
-    # print the submenu options
-    for ((i = 0; i < ${#submenu_opt2[@]}; i++)); do
-        if [ "$i" -eq "$sub2_highlighted" ]; then
-            printf "\e[7m%s\e[0m " "${submenu_opt2[$i]}"
-        else
-            printf "%s " "${submenu_opt2[$i]}"
-        fi
-    done
-}
-
-box() {
-    local highlighted="$1"
-    local text=$(print_opts "$highlighted")
-    local len=${#text}
-    local row=3
-    # local num_lines=$(( ($(echo -e "$text" | wc -l) / 2) + 1 ))
-
-    # move cursor to correct row and overwrite content - ensures no reprints
-    printf "\e[%d;0H" "$row"
-
-    # top
-    echo "╔$(printf '=%.0s' $(seq 1 "$len"))╗"
-    echo "║ $title $(printf ' %.0s' $(seq 1 "$((len - 10))")) ║" # yeah the formatting is bootleg, i'm tired, myb
-
-    # sides
-    echo "║$(printf ' %.0s' $(seq 1 "$len"))║" # empty line
-    # for ((i = 1; i <= num_lines; i++)); do
-    printf "%$(($len - 1))s" "" # ensures all characters are overwritten when going back to main menu
-    tput cup 5 0
-    echo "║ $text $(printf ' %.0s' $(seq 1 "$((len / 5))"))║"
-
-    # bottom
-    echo "╚$(printf '=%.0s' $(seq 1 "$len"))╝"
-    echo -e "\n<enter - select, q - quit, b - back>"
-}
+printf "\033[H\033[2J"
+echo -e "$title\n\n\n"
 
 end_screen() {
     tput cnorm
-    tput cup 9 0
     echo
     stty echo
     exit 0
@@ -115,92 +106,87 @@ end_screen() {
 
 trap end_screen EXIT
 
-printf "\033[H\033[2J"
-
-# initialize opt1 highlighted
 highlighted=1
 sub1_highlighted=0
 sub2_highlighted=0
-
-# print options with initial highlighting
-box "$highlighted"
+list "$highlighted"
 
 while true; do
     tput civis
-    read -rsn1 key # reads single char input without echoing to terminal and stores in key variable
+    read -rsn1 key
     if [ "$sub1" == true ]; then
-        # handle submenu arrow key presses
         case "$key" in
-            D)  # left
+            A)  # up
                 sub1_highlighted=$(( (sub1_highlighted - 1 + ${#submenu_opt1[@]}) % ${#submenu_opt1[@]} ))
-                submenu_opt1
+                sublist1 "$sub1_highlighted"
                 ;;
-            C)  # right
+            B)  # down
                 sub1_highlighted=$(( (sub1_highlighted + 1) % ${#submenu_opt1[@]} ))
-                submenu_opt1
+                sublist1 "$sub1_highlighted"
+                ;;
+            b)
+                sub1=false
+                sub2=false
+                main=true
+                highlighted=1
+                list "$highlighted"
+                ;;
+            q)
+                break
+                ;;
+            "") # enter key
+                selected_color="${submenu_opt1[sub1_highlighted]}"
+                get_color "$selected_color"
                 ;;
         esac
     elif [ "$sub2" == true ]; then
         case "$key" in
-            D)  # left
+            A)  # up
                 sub2_highlighted=$(( (sub2_highlighted - 1 + ${#submenu_opt2[@]}) % ${#submenu_opt2[@]} ))
-                submenu_opt2
+                sublist2 "$sub2_highlighted"
                 ;;
-            C)  # right
+            B)  # down
                 sub2_highlighted=$(( (sub2_highlighted + 1) % ${#submenu_opt2[@]} ))
-                submenu_opt2
+                sublist2 "$sub2_highlighted"
                 ;;
-        esac
-    else
-        # handle main options arrow key presses
-        case "$key" in
-            D)  # left arrow - highlight opt1
+            b)
+                sub1=false
+                sub2=false
+                main=true
                 highlighted=1
-                box "$highlighted"
+                list "$highlighted"
                 ;;
-            C)  # right arrow - highlight opt2
-                highlighted=2
-                box "$highlighted"
+            q)
+                break
                 ;;
         esac
     fi
-
     case "$key" in
-        q)  # q key - quit
-            break
-            ;;
-        b)
-            sub1=false
-            sub2=false
-            highlighted=1
-            tput cup 7 0
-            printf "\r%80s" " " # moves cursor to beginning and prints 80 chars
-            box "$highlighted"
-            ;;
-        "") # enter key
-            if [ "$highlighted" -eq 1 ]; then
-                # enter key pressed on opt1
-                sub1=true
-                submenu_opt1
-            elif [ "$highlighted" -eq 2 ]; then
-                # enter key pressed on opt2
-                sub2=true
-                submenu_opt2
-            fi
-            ;;
-    esac
-
-    if [ "$sub1" == true ]; then
-        # handle submenu option selection for Colors/Theme
-        case "$key" in
-            "") # enter key
-                selected_color="${submenu_opt1[sub1_highlighted]}"
-
-                # return the selected color
-                get_color "$selected_color"
+            A)  # up arrow - highlight opt1
+                if [ "$main" == true ]; then
+                    highlighted=1
+                    list "$highlighted"
+                fi
                 ;;
-        esac
-    fi
+            B)  # down arrow - highlight opt2
+                if [ "$main" == true ]; then
+                    highlighted=2
+                    list "$highlighted"
+                fi
+                ;;
+            q)
+                break
+                ;;
+            "") # enter key
+                if [ "$highlighted" -eq 1 ]; then
+                    main=false
+                    sub1=true
+                    sub_1
+                elif [ "$highlighted" -eq 2 ]; then
+                    main=false
+                    sub2=true
+                    sub_2
+                fi
+                ;;
+    esac
 done
-
-
