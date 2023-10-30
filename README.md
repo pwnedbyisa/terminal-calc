@@ -6,7 +6,7 @@
 
 ___
 ### Overview
-Welcome to my overkill calculator! This is a lil command line tool I've been working on to expand my coding skillset (so if you see questionable formatting/ terribly written code, that's why) <br>
+Welcome to my overkill calculator <3 This is a CLI tool I've been working on to expand my coding skillset (so if you see questionable formatting/ terribly written code, that's why) <br>
 I'm learning as I go so any suggestions are welcome!
 
 ___
@@ -71,6 +71,7 @@ ___
 ___
 ### Currently Working On
  - bash and batch options menu for colors + language
+ - optimizing the menu code because it's about 4x as long as it needs to be
  - reducing dependencies
  - graphing (there's currently no tick marks... or axes... or origin)
 ___
