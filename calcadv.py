@@ -133,18 +133,22 @@ def op_list(args):
             if left.lower() == 'y':
                 graph = calcgraph.generate_graph(right)
                 print_color(graph)
-        elif currentArgument in ('-o', '--options'):  # yeah this doesn't work
-            if 'nt' in os.name:
+        elif currentArgument in ('-o', '--options'):  # yeah this still doesn't work
+            subprocess.run('./calcmenu.sh')
+            color = os.environ.get('exp_color', COLORS['default'])
+            '''
+            if 'nt' in os.name:  # windows
                 print_color('bat file not implemented yet')
-            elif 'posix' in os.name:
-                subprocess.call('./calcmenu.sh')
+            elif 'posix' in os.name:  # mac or linux - unix based
+                result = subprocess.run(['./calcmenu.sh'], stdout=subprocess.PIPE, text=True)
                 try:
-                    color = subprocess.check_output(["./calcmenu.sh"], universal_newlines=True).strip()
+                    color = result.stdout.strip()
                 except subprocess.CalledProcessError:
                     print('[*] Bash script return error, default color enabled')
                     color = COLORS['default']
             else:
                 print_color('os not detected')
+            '''
         # pi and e at the bottom because they interfere w other functions and cause list index out of range errors
         elif args[1] == '[pi]':
             args[1] = float(math.pi)
