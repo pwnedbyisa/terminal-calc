@@ -108,7 +108,10 @@ def op_list(args):
         elif currentArgument in ('-l', '--log'):
             print_color('\n>>> [*] Calculating . . .\n')
             base = args[2]
-            logs(args[1], base)
+            try:
+                logs(args[1], base)
+            except ZeroDivisionError:
+                print_color(">>> [!] Zero division error - base of a log cannot be 1\n")
         elif currentArgument in ('-mo', '--morse-code'):
             print_color('>>> This feature isn\'t available yet </3')
         elif currentArgument in ('-mr', '--memory-recall'):
