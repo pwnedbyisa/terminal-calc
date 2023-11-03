@@ -71,11 +71,12 @@ ___
 ```
 ___
 ### Currently Working On
- - bash and batch options menu for colors + language
- - optimizing the menu code because it's about 4x as long as it needs to be
+ - getting the batch script to actually run
+ - language implementation for the options menu
  - reducing dependencies
- - graphing (there's currently no tick marks... or axes... or origin)
+ - improving UI
+ - fixing the issue where 4 extra lines print for the windows help menu (idk why)
 ___
 ### Later additions
- - actually making the graphing thing usable
+ - actually making the graphing thing usable (there's currently no tick marks... or axes... or origin)
 
