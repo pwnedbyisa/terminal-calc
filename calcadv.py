@@ -139,9 +139,12 @@ def op_list(args):
         elif currentArgument in ('-o', '--options'):
             # half cheating bc the amount of tomfoolery it takes to export child env vars to the parent process is ridiculous
             if 'nt' in os.name:  # windows
-                subprocess.run('calcmenu.bat')
+                # subprocess.run('calcmenu.bat')
+                print_color("\n>> Implementation in progress \n")
             elif 'posix' in os.name:  # mac or linux - unix based
                 subprocess.run('./calcmenu.sh')
+                with open('exp.txt', 'r') as file:
+                    color = file.read().strip()
             else:
                 print_color("[!] OS not recognized")
         # pi and e at the bottom because they interfere w other functions and cause list index out of range errors
