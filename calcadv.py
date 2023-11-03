@@ -497,7 +497,7 @@ def main():
                 '[e]\t <e as input>\n[pi]\t <pi as input>\n\n'
                 '\nOutput Settings vvv\n' + '-' * 79 + '\n'
                 '-sk, --script-kiddie\t <r35ult l00k5 l1k3 th15>\n'
-                '-o, --options\t\t <options menu>\n'
+                '-o, --options\t\t <options menu - q to exit>\n'
                 # source for more when implemented http://kaomoji.ru/en/
                 '-em, --emoticons\t <result gets one of these (´ ω `@)>\n'
                 '-gm, --graphing-mode\t <graph an equation - ex// -gm y=3x+2>\n'
