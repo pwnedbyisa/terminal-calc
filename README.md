@@ -1,7 +1,7 @@
 ## command-line calculator 
 
 <p align="center">
- <img src="https://github.com/pwnedbyisa/terminal-calc/assets/138353745/c6031d80-d67c-47eb-b601-92f4ba57516c" alt="header image (that isn't rendering right if you're seeing this)"/>
+ <img src="https://github.com/pwnedbyisa/terminal-calc/assets/138353745/202c951a-0ee5-4478-b0a8-b8c19c3b46c2" alt="header image (that isn't rendering right if you're seeing this)"/>
 </p>
 
 ___
