@@ -140,17 +140,8 @@ def op_list(args):
             subprocess.run('./calcmenu.sh')
             color = os.environ.get('exp_color', COLORS['default'])
             '''
-            if 'nt' in os.name:  # windows
-                print_color('bat file not implemented yet')
-            elif 'posix' in os.name:  # mac or linux - unix based
-                result = subprocess.run(['./calcmenu.sh'], stdout=subprocess.PIPE, text=True)
-                try:
-                    color = result.stdout.strip()
-                except subprocess.CalledProcessError:
-                    print('[*] Bash script return error, default color enabled')
-                    color = COLORS['default']
-            else:
-                print_color('os not detected')
+            'nt' in os.name:  # windows
+            'posix' in os.name:  # mac or linux - unix based
             '''
         # pi and e at the bottom because they interfere w other functions and cause list index out of range errors
         elif args[1] == '[pi]':
