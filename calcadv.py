@@ -136,13 +136,14 @@ def op_list(args):
             if left.lower() == 'y':
                 graph = calcgraph.generate_graph(right)
                 print_color(graph)
-        elif currentArgument in ('-o', '--options'):  # yeah this still doesn't work
-            subprocess.run('./calcmenu.sh')
-            color = os.environ.get('exp_color', COLORS['default'])
-            '''
-            'nt' in os.name:  # windows
-            'posix' in os.name:  # mac or linux - unix based
-            '''
+        elif currentArgument in ('-o', '--options'):
+            # half cheating bc the amount of tomfoolery it takes to export child env vars to the parent process is ridiculous
+            if 'nt' in os.name:  # windows
+                subprocess.run('calcmenu.bat')
+            elif 'posix' in os.name:  # mac or linux - unix based
+                subprocess.run('./calcmenu.sh')
+            else:
+                print_color("[!] OS not recognized")
         # pi and e at the bottom because they interfere w other functions and cause list index out of range errors
         elif args[1] == '[pi]':
             args[1] = float(math.pi)
@@ -492,6 +493,7 @@ def main():
                 '[e]\t <e as input>\n[pi]\t <pi as input>\n\n'
                 '\nOutput Settings vvv\n' + '-' * 79 + '\n'
                 '-sk, --script-kiddie\t <r35ult l00k5 l1k3 th15>\n'
+                '-o, --options\t <options menu>\n'
                 # source for more when implemented http://kaomoji.ru/en/
                 '-em, --emoticons\t <result gets one of these (´ ω `@)>\n'
                 '-gm, --graphing-mode\t <graph an equation - ex// -gm y=3x+2>\n'
@@ -499,7 +501,8 @@ def main():
                 '-mr, --memory-recall\t <recall previous result(s) (up to 10)>\n'
                 '-mc, --memory-clear\t <clear all saved results>\n\n'
                 '\nHelp/ Resources vvv\n' + '-' * 79 + '\n'
-                '-h, --help\t <help menu>\n-o, --options\t <options menu>\n-c, --clear\t <clear screen>\n-git, --github\t <redirect to github repo>\n'                                                                                                                                                                                                                                '-h, --help\t <help menu>\n-o, --options\t <settings menu>\n-c, --clear\t <clear screen>\n-git, --github\t <redirect to github repo>\n'
+                '-h, --help\t <help menu>\n'
+                '-c, --clear\t <clear screen>\n-git, --github\t <redirect to github repo>\n\n'                                                                                                                                                                                                                                '-h, --help\t <help menu>\n-o, --options\t <settings menu>\n-c, --clear\t <clear screen>\n-git, --github\t <redirect to github repo>\n'
             )
         else:
             args = currentArgument.split(' ')
