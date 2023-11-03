@@ -7,41 +7,32 @@ submenu_opt1=(">> Red" ">> Orange" ">> Yellow" ">> Green" ">> Blue" ">> Purple" 
 submenu_opt2=(">> English" ">> Spanish" ">> French")
 
 main=true
-sub1=false
-sub2=false
+sub1active=false
+sub2active=false
+highlighted=1
+sub_highlighted=0
 
 print_opts() {
-    local option1="$1"
+    local option="$1"
 
-    if [ "$option1" == 1 ]; then
+    if [ "$option" == 1 ]; then
         printf "\e[7m%s\e[0m%s\n\n%s\n" "${opt1:0:2}" "${opt1:2}" "$opt2" # indexed so only the first two chars are highlighted
     else
         printf "%s\n\n\e[7m%s\e[0m%s\n" "$opt1" "${opt2:0:2}" "${opt2:2}"
     fi
 }
 
-sub_1() {
-    tput cup 3 0
-    printf "\33[2K\r" # clear the line
-    for ((i = 0; i < ${#submenu_opt1[@]}; i++)); do
-        if [ "$i" -eq "$sub1_highlighted" ]; then
-            printf "\e[7m%s\e[0m%s\n\n" "${submenu_opt1[$i]:0:2}" "${submenu_opt1[$i]:2}"
-        else
-            printf "\33[2K\r"
-            printf "%s\n\n" "${submenu_opt1[$i]}"
-        fi
-    done
-}
+sub_menu() {
+    local submenu=("$@")
 
-sub_2() {
     tput cup 3 0
     printf "\33[2K\r" # clear the line
-    for ((i = 0; i < ${#submenu_opt2[@]}; i++)); do
-        if [ "$i" -eq "$sub2_highlighted" ]; then
-            printf "\e[7m%s\e[0m%s\n\n" "${submenu_opt2[$i]:0:2}" "${submenu_opt2[$i]:2}"
+    for ((i = 0; i < ${#submenu[@]}; i++)); do
+        if [ "$i" -eq "$sub_highlighted" ]; then
+            printf "\e[7m%s\e[0m%s\n\n" "${submenu[$i]:0:2}" "${submenu[$i]:2}"
         else
             printf "\33[2K\r"
-            printf "%s\n\n" "${submenu_opt2[$i]}"
+            printf "%s\n\n" "${submenu[$i]}"
         fi
     done
 }
@@ -58,22 +49,6 @@ list() {
 
     printf "\e[%d;0H" "$row"
     echo -e "$text" # maintain formatting
-}
-
-sublist1() {
-    local text=$(sub_1 "$sub1_highlighted")
-    local row=4
-
-    printf "\e[%d;0H" "$row"
-    echo -e "$text"
-}
-
-sublist2() {
-    local text=$(sub_2 "$sub2_highlighted")
-    local row=4
-
-    printf "\e[%d;0H" "$row"
-    echo -e "$text"
 }
 
 get_color() {
@@ -97,6 +72,8 @@ get_color() {
 printf "\033[H\033[2J"
 echo -e "$title\n\n\n"
 
+list "$highlighted"
+
 end_screen() {
     tput cnorm
     echo
@@ -106,27 +83,22 @@ end_screen() {
 
 trap end_screen EXIT
 
-highlighted=1
-sub1_highlighted=0
-sub2_highlighted=0
-list "$highlighted"
-
 while true; do
     tput civis
     read -rsn1 key
-    if [ "$sub1" == true ]; then
+    if [ "$sub1active" == true ]; then
         case "$key" in
             A)  # up
-                sub1_highlighted=$(( (sub1_highlighted - 1 + ${#submenu_opt1[@]}) % ${#submenu_opt1[@]} ))
-                sublist1 "$sub1_highlighted"
+                sub_highlighted=$(( (sub_highlighted - 1 + ${#submenu_opt1[@]}) % ${#submenu_opt1[@]} ))
+                sub_menu "${submenu_opt1[@]}"
                 ;;
             B)  # down
-                sub1_highlighted=$(( (sub1_highlighted + 1) % ${#submenu_opt1[@]} ))
-                sublist1 "$sub1_highlighted"
+                sub_highlighted=$(( (sub_highlighted + 1) % ${#submenu_opt1[@]} ))
+                sub_menu "${submenu_opt1[@]}"
                 ;;
             b)
-                sub1=false
-                sub2=false
+                sub1active=false
+                sub2active=false
                 main=true
                 highlighted=1
                 list "$highlighted"
@@ -135,23 +107,23 @@ while true; do
                 break
                 ;;
             "") # enter key
-                selected_color="${submenu_opt1[sub1_highlighted]}"
+                selected_color="${submenu_opt1[sub_highlighted]}"
                 get_color "$selected_color"
                 ;;
         esac
-    elif [ "$sub2" == true ]; then
+    elif [ "$sub2active" == true ]; then
         case "$key" in
             A)  # up
-                sub2_highlighted=$(( (sub2_highlighted - 1 + ${#submenu_opt2[@]}) % ${#submenu_opt2[@]} ))
-                sublist2 "$sub2_highlighted"
+                sub_highlighted=$(( (sub_highlighted - 1 + ${#submenu_opt2[@]}) % ${#submenu_opt2[@]} ))
+                sub_menu "${submenu_opt2[@]}"
                 ;;
             B)  # down
-                sub2_highlighted=$(( (sub2_highlighted + 1) % ${#submenu_opt2[@]} ))
-                sublist2 "$sub2_highlighted"
+                sub_highlighted=$(( (sub_highlighted + 1) % ${#submenu_opt2[@]} ))
+                sub_menu "${submenu_opt2[@]}"
                 ;;
             b)
-                sub1=false
-                sub2=false
+                sub1active=false
+                sub2active=false
                 main=true
                 highlighted=1
                 list "$highlighted"
@@ -162,31 +134,31 @@ while true; do
         esac
     fi
     case "$key" in
-            A)  # up arrow - highlight opt1
-                if [ "$main" == true ]; then
-                    highlighted=1
-                    list "$highlighted"
-                fi
-                ;;
-            B)  # down arrow - highlight opt2
-                if [ "$main" == true ]; then
-                    highlighted=2
-                    list "$highlighted"
-                fi
-                ;;
-            q)
-                break
-                ;;
-            "") # enter key
-                if [ "$highlighted" -eq 1 ]; then
-                    main=false
-                    sub1=true
-                    sub_1
-                elif [ "$highlighted" -eq 2 ]; then
-                    main=false
-                    sub2=true
-                    sub_2
-                fi
-                ;;
+        A)  # up arrow - highlight opt1
+            if [ "$main" == true ]; then
+                highlighted=1
+                list "$highlighted"
+            fi
+            ;;
+        B)  # down arrow - highlight opt2
+            if [ "$main" == true ]; then
+                highlighted=2
+                list "$highlighted"
+            fi
+            ;;
+        q)
+            break
+            ;;
+        "") # enter key
+            if [ "$highlighted" -eq 1 ]; then
+                main=false
+                sub1active=true
+                sub_menu "${submenu_opt1[@]}"
+            elif [ "$highlighted" -eq 2 ]; then
+                main=false
+                sub2active=true
+                sub_menu "${submenu_opt2[@]}"
+            fi
+            ;;
     esac
 done
