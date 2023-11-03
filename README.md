@@ -53,7 +53,8 @@ ___
 ```
 -sk, --script-kiddie  <r35ult l00k5 l1k3 th15>
 -em, --emoticons      <result gets one of these (´ ω ´@)>
--gm, --graphing-mode  <graph an equation - ex// -gm y=3x+2>` (heavy on the WIP w this one
+-gm, --graphing-mode  <graph an equation - ex// -gm y=3x+2>` (heavy on the WIP w this one)
+-o, --options         <options menu>
 ```
 
 #### Memory
