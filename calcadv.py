@@ -463,16 +463,17 @@ def logs(num, base):
 def main():
     prompt = '$ '
 
-    # banner v1.2
-    print('\n')
-    print_color(' ██████╗ █████╗ ██╗      ██████╗    ██╗   ██╗ ██╗   ██████╗')
+    # banner v1.3
+    print_color('\n')
+    print_color(' ██████╗ █████╗ ██╗      ██████╗    ██╗   ██╗ ██╗   ██████╗ ')
     print_color('██╔════╝██╔══██╗██║     ██╔════╝    ██║   ██║███║   ╚════██╗')
     print_color('██║     ███████║██║     ██║         ██║   ██║╚██║    █████╔╝')
-    print_color('██║     ██╔══██║██║     ██║         ╚██╗ ██╔╝ ██║   ██╔═══╝')
-    print_color('╚██████╗██║  ██║███████╗╚██████╗     ╚████╔╝  ██║██╗███████╗')
-    print_color(' ╚═════╝╚═╝  ╚═╝╚══════╝ ╚═════╝      ╚═══╝   ╚═╝╚═╝╚══════╝')
+    print_color('██║     ██╔══██║██║     ██║         ╚██╗ ██╔╝ ██║    ╚═══██╗')
+    print_color('╚██████╗██║  ██║███████╗╚██████╗     ╚████╔╝  ██║██╗██████╔╝')
+    print_color(' ╚═════╝╚═╝  ╚═╝╚══════╝ ╚═════╝      ╚═══╝   ╚═╝╚═╝╚═════╝ ')
     print_color('\n   Welcome to Calc CLI! Input -h or --help for options <3\n' + '=' * 60 + '\n')
 
+    
     while True:
         currentArgument = input(prompt)
 
