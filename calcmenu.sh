@@ -60,7 +60,7 @@ get_color() {
         ">> Orange") color='\033[0;33m' ;;
         ">> Yellow") color='\033[0;33m' ;;
         ">> Green") color='\033[0;32m' ;;
-        ">> Blue") color='\033[0;34m' ;;
+        ">> Blue") color='\033[0;36m' ;;
         ">> Purple") color='\033[0;35m' ;;
         ">> White") color='\033[0;37m' ;;
     esac
