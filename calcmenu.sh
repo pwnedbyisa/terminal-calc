@@ -66,7 +66,7 @@ get_color() {
     esac
 
     exp_color="$color"
-    export exp_color
+    echo "$exp_color" > exp.txt
 }
 
 printf "\033[H\033[2J"
