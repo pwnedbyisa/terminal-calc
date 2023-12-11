@@ -147,7 +147,8 @@ def op_list(args):
             elif 'posix' in os.name:  # mac or linux - unix based
                 subprocess.run('./calcmenu.sh')
                 with open('exp.txt', 'r') as file:
-                    color = file.read().strip()
+                    color_str = file.read().strip()
+                    color = eval(f'"{color_str}"')
             else:
                 print_color("[!] OS not recognized")
         # pi and e at the bottom because they interfere w other functions and cause list index out of range errors
