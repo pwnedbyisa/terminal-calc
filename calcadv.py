@@ -7,7 +7,8 @@ import calcgraph
 
 COLORS = {
     'default': '\033[0;36m',  # cyan
-    'reset': '\033[0m',  # reset text color to default
+    'reset': '\033[0m',  # reset
+    'bold': '\033[0;1m',
 }
 
 color = COLORS['default']
@@ -28,12 +29,14 @@ sk_replace = [('a', '4'), ('e', '3'), ('i', '1'), ('o', '0'), ('s', '5')]
 
 emoticon_mode_enabled = False
 sk_mode_enabled = False
+# simple_output = False
 
 
 def op_list(args):
     global emoticon_mode_enabled
     global sk_mode_enabled
     global color
+    # global simple_output
 
     try:
         currentArgument = args[0]
@@ -140,7 +143,7 @@ def op_list(args):
             # half cheating bc the amount of tomfoolery it takes to export child env vars to the parent process is ridiculous
             if 'nt' in os.name:  # windows
                 # subprocess.run('calcmenu.bat')
-                print_color("\n>> Implementation in progress \n")
+                print_color("\n>>> Implementation in progress \n")
             elif 'posix' in os.name:  # mac or linux - unix based
                 subprocess.run('./calcmenu.sh')
                 with open('exp.txt', 'r') as file:
@@ -165,7 +168,7 @@ def clear_screen():
     print_color("\033c")
 
 
-# decorator for emoticon and sk modes (i partially understand how it works)
+# decorator for emoticon, sk, add bold to nums and results later
 def out(func):
     def wrapper(*args, **kwargs):
 
@@ -190,8 +193,12 @@ def out(func):
             emoticon = random.choice(em_list)
             result += f'\t {emoticon}'
 
-        print_color(result)
-        return result
+        words = result.split(' ')
+        print(color + ' '.join(words[:-1]), end='')  # no newline
+        print('\033[1m' + ' ' + words[-1] + COLORS['reset'])
+
+        # print_color(result)
+        return ''.join(result)
 
     return wrapper
 
@@ -473,44 +480,47 @@ def main():
     print_color(' ╚═════╝╚═╝  ╚═╝╚══════╝ ╚═════╝      ╚═══╝   ╚═╝╚═╝╚═════╝ ')
     print_color('\n   Welcome to Calc CLI! Input -h or --help for options <3\n' + '=' * 60 + '\n')
 
-    
     while True:
-        currentArgument = input(prompt)
+        try:
+            currentArgument = input(prompt)
 
-        if currentArgument in ('exit', 'quit', 'bye', 'peace', 'close', 'q'):
-            print_color("\n>>> Exiting CalcCLI. Bye!\n")
+            if currentArgument in ('exit', 'quit', 'bye', 'peace', 'close', 'q'):
+                print_color("\n>>> Exiting CalcCLI. Bye!\n")
+                break
+            elif currentArgument in ('-h', '--help'):
+                print_color('\nFormat: <options> <number(s)>\n'
+                            'Example: -a [pi] 23 \n' + '-' * 79)
+                print_color(
+                    '\n\nBasic Functions vvv\n' + '-' * 79 + '\n'
+                    '-a, --add\t\t <addition>\n-s, --subtract\t\t <subtraction>\n'
+                    '-m, --multiply\t\t <multiplication>\n-d, --divide\t\t <division>\n-ex, --exponent\t\t <exponent, [num] [exp]>\n'
+                    '-sq, --square-root\t <square root>\n-abs, --abs-value\t <absolute value>\n'
+                    '-l, --log\t\t <logarithm, [num] [base]>\n-f, --factorial\t\t <return factorial (!) value>\n\n'
+                    '\nTrig Functions vvv\n' + '-' * 79 + '\n'
+                    '-rad, --rad-from-deg\t <output radians from degrees>\n-deg, --deg-from-rad\t <output degrees from radians>\n'
+                    '-S, --sine\t\t <sine>\n-C, --cosine\t\t <cosine>\n-T, --tangent\t\t <tangent>\n'
+                    '-aS, --arc-sin\t\t <inverse of sine>\n-aC, --arc-cos\t\t <inverse of cosine>\n-aT, --arc-tan\t\t <inverse of tangent>\n\n'
+                    '\nInput Numbers vvv\n' + '-' * 79 + '\n'
+                    '[e]\t <e as input>\n[pi]\t <pi as input>\n\n'
+                    '\nOutput Settings vvv\n' + '-' * 79 + '\n'
+                    '-sk, --script-kiddie\t <r35ult l00k5 l1k3 th15>\n'
+                    '-o, --options\t\t <options menu - q to exit>\n'
+                    # source for more when implemented http://kaomoji.ru/en/
+                    '-em, --emoticons\t <result gets one of these (´ ω `@)>\n'
+                    '-gm, --graphing-mode\t <graph an equation - ex// -gm y=3x+2>\n'
+                    '\nMemory vvv\n' + '-' * 79 + '\n'
+                    '-mr, --memory-recall\t <recall previous result(s) (up to 10)>\n'
+                    '-mc, --memory-clear\t <clear all saved results>\n\n'
+                    '\nHelp/ Resources vvv\n' + '-' * 79 + '\n'
+                    '-h, --help\t <help menu>\n'
+                    '-c, --clear\t <clear screen>\n-git, --github\t <redirect to github repo>\n\n'                                                                                                                                                                                                                                '-h, --help\t <help menu>\n-o, --options\t <settings menu>\n-c, --clear\t <clear screen>\n-git, --github\t <redirect to github repo>\n'
+                )
+            else:
+                args = currentArgument.split(' ')
+                op_list(args)
+        except KeyboardInterrupt:
+            print_color("\n\n>>> Exiting CalcCLI. Bye!\n")
             break
-        elif currentArgument in ('-h', '--help'):
-            print_color('\nFormat: <options> <number(s)>\n'
-                        'Example: -a [pi] 23 \n' + '-' * 79)
-            print_color(
-                '\n\nBasic Functions vvv\n' + '-' * 79 + '\n'
-                '-a, --add\t\t <addition>\n-s, --subtract\t\t <subtraction>\n'
-                '-m, --multiply\t\t <multiplication>\n-d, --divide\t\t <division>\n-ex, --exponent\t\t <exponent, [num] [exp]>\n'
-                '-sq, --square-root\t <square root>\n-abs, --abs-value\t <absolute value>\n'
-                '-l, --log\t\t <logarithm, [num] [base]>\n-f, --factorial\t\t <return factorial (!) value>\n\n'
-                '\nTrig Functions vvv\n' + '-' * 79 + '\n'
-                '-rad, --rad-from-deg\t <output radians from degrees>\n-deg, --deg-from-rad\t <output degrees from radians>\n'
-                '-S, --sine\t\t <sine>\n-C, --cosine\t\t <cosine>\n-T, --tangent\t\t <tangent>\n'
-                '-aS, --arc-sin\t\t <inverse of sine>\n-aC, --arc-cos\t\t <inverse of cosine>\n-aT, --arc-tan\t\t <inverse of tangent>\n\n'
-                '\nInput Numbers vvv\n' + '-' * 79 + '\n'
-                '[e]\t <e as input>\n[pi]\t <pi as input>\n\n'
-                '\nOutput Settings vvv\n' + '-' * 79 + '\n'
-                '-sk, --script-kiddie\t <r35ult l00k5 l1k3 th15>\n'
-                '-o, --options\t\t <options menu - q to exit>\n'
-                # source for more when implemented http://kaomoji.ru/en/
-                '-em, --emoticons\t <result gets one of these (´ ω `@)>\n'
-                '-gm, --graphing-mode\t <graph an equation - ex// -gm y=3x+2>\n'
-                '\nMemory vvv\n' + '-' * 79 + '\n'
-                '-mr, --memory-recall\t <recall previous result(s) (up to 10)>\n'
-                '-mc, --memory-clear\t <clear all saved results>\n\n'
-                '\nHelp/ Resources vvv\n' + '-' * 79 + '\n'
-                '-h, --help\t <help menu>\n'
-                '-c, --clear\t <clear screen>\n-git, --github\t <redirect to github repo>\n\n'                                                                                                                                                                                                                                '-h, --help\t <help menu>\n-o, --options\t <settings menu>\n-c, --clear\t <clear screen>\n-git, --github\t <redirect to github repo>\n'
-            )
-        else:
-            args = currentArgument.split(' ')
-            op_list(args)
 
 
 if __name__ == '__main__':
