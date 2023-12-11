@@ -1,6 +1,6 @@
 #!/bin/bash
 
-title="[ -- Options -- ]"
+title="[ -- Options -- ] <b - go back | q - quit>"
 opt1=">> Colors/Theme"
 opt2=">> Language"
 submenu_opt1=(">> Red" ">> Orange" ">> Yellow" ">> Green" ">> Blue" ">> Purple" ">> White")
@@ -66,6 +66,7 @@ get_color() {
     esac
 
     exp_color="$color"
+    echo -e "$exp_color >> New color set successfully \033[0m"
     echo "$exp_color" > exp.txt
 }
 
