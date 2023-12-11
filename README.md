@@ -5,6 +5,11 @@
 </p>
 
 ___
+### Disclaimer
+- This is a work in preogress meaning there are a ton of issues I'm currently trying to fix (ex// options menu, smoother installation process)
+- I'm currently working on a new release that gets rid of most of the bugs from the older releases, so I don't recommend downloading those
+
+___
 ### Overview
 Welcome to my overkill calculator <3 This is a CLI tool I've been working on to expand my coding skillset (so if you see questionable formatting/ terribly written code, that's why) <br>
 I'm learning as I go so any suggestions are welcome!
