@@ -6,7 +6,6 @@
 
 ___
 ### Disclaimer
-- This is a work in preogress meaning there are a ton of issues I'm currently trying to fix (ex// options menu, smoother installation process)
 - I'm currently working on a new release that gets rid of most of the bugs from the older releases, so I don't recommend downloading those
 
 ___
