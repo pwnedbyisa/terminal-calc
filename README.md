@@ -15,6 +15,7 @@ ___
 - `git clone https://github.com/pwnedbyisa/terminal-calc.git`
 - cd into the `terminal-calc` directory
 - `chmod -x calcadv.py` (linux)
+- `chmod -x calcmenu.sh` (linux)
 - `python3 calcadv.py`
 ___
 ### Functions
