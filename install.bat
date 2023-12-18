@@ -27,5 +27,6 @@ if "%~1"=="" (
 
   shift
   if not "%~1"=="" goto parseArgs
-  echo [*] Installation Complete
+  for /f %%a in ('echo prompt $E^| cmd') do set "ESC=%%a"
+  echo %ESC%[0;32m[*] Installation Complete %ESC%[0m
 )
