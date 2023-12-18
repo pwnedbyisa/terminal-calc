@@ -1,7 +1,5 @@
 #!/bin/bash
 
-touch default.txt
-
 if [ "$#" -eq 0 ]; then
   echo -e "Usage ./install.sh [option] \nSet Default Color: \n\033[0;31m-r <red> \n\033[0;33m-o <orange> \n\033[0;33m-y <yellow> \n\033[0;32m-g <green> \n\033[0;36m-b <blue> \n\033[0;35m-p <purple> \n\033[0;37m-w <white>\n"
 else
