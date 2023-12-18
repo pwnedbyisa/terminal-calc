@@ -5,8 +5,9 @@
 </p>
 
 ___
-### Disclaimer
-- I'm currently working on a new release that gets rid of most of the bugs from the older releases, so I don't recommend downloading those
+### Notes
+- I don't recommend dowloading older releases, they have a ton of bugs that are fixed in the newer releases
+- Colors are based on your own terminal color scheme since the program only uses ANSI escape color codes
 
 ___
 ### Overview
@@ -80,12 +81,12 @@ ___
 ```
 ___
 ### Currently Working On
- - getting the batch script to actually run
- - language implementation for the options menu
+ - getting the batch menu script to actually run
  - reducing dependencies
  - improving UI
- - fixing the issue where 4 extra lines print for the windows help menu (idk why)
+ - fixing the issue where 4 extra lines print for the help menu (idk why)
 ___
 ### Later additions
  - actually making the graphing thing usable (there's currently no tick marks... or axes... or origin)
+ - language implementation for the options menu
 
