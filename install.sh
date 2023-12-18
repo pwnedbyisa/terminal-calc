@@ -34,5 +34,5 @@ else
   done
   chmod +x calcmenu.sh
   shift $((OPTIND-1))
-  echo "[*] Installation Complete"
+  echo -e "\033[0;32m[*] Installation Complete\033[0m"
 fi  
