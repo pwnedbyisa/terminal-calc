@@ -18,8 +18,8 @@ ___
 > Python 3 should be installed on your machine for this to work optimally; I haven't fully tested for dependencies so keep that in mind
 - `git clone https://github.com/pwnedbyisa/terminal-calc.git`
 - cd into the `terminal-calc` directory
-- `chmod +x calcadv.py` (linux)
-- `chmod +x calcmenu.sh` (linux)
+- `chmod +x install.sh` (linux)
+- `./install.sh` (linux)
 - `python3 calcadv.py`
 ___
 ### Functions
