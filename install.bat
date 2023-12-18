@@ -2,9 +2,11 @@
 setlocal enabledelayedexpansion
 
 if "%~1"=="" (
+  echo.
   echo Usage %0 [option]
   echo Set Default Color:
   echo -r Red -o Orange -y Yellow -g Green -b Blue -p Purple -w White
+  echo.
 ) else (
   set "colorCode="
   :parseArgs
