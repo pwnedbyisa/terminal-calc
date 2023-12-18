@@ -5,8 +5,11 @@ import random
 import os
 import calcgraph
 
+with open('default.txt', 'r') as file:
+    defc = file.read().strip()
+
 COLORS = {
-    'default': '\033[0;36m',  # cyan
+    'default': eval(f'"{defc}"'),
     'reset': '\033[0m',  # reset
     'bold': '\033[0;1m',
 }
