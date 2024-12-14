@@ -24,7 +24,7 @@ ___
 - `./install.sh` - make menu options scripts executable + set default color
 - `python3 calcadv.py` <br> <br>
 **Windows**
-- `.\install.sh` - set default color
+- `.\install.bat` - set default color
 - `python3 calcadv.py`
 ___
 ### Functions
